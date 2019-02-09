@@ -212,6 +212,8 @@ let python_highlight_all=1
 
 " NERDTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<cr>
+
 " Close if last tab is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && 
     \ b:NERDTree.isTabTree()) | q | endif
