@@ -214,10 +214,19 @@ let python_highlight_all=1
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<cr>
 
+" Start NERDTree
+autocmd VimEnter * NERDTreeFind
+" Jump to the main window.
+autocmd VimEnter * wincmd p
+
+
 " Close if last tab is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && 
     \ b:NERDTree.isTabTree()) | q | endif
 
 " TagBar
 nnoremap <leader>t :Tagbar<CR>
+
+" vim-jedi
+let g:jedi#usages_command = "<leader>u"
 
