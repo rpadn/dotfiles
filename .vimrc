@@ -111,7 +111,8 @@ nnoremap <leader><space> :noh<esc>
 " Tab navigation
 nnoremap <leader><tab> :bnext<CR>
 nnoremap <leader><S-tab> :bprev<CR>
-nnoremap <leader>c :BufOnly<CR>
+" close buffer only with NERDTree open
+nnoremap <leader>c :bp<cr>:bd #<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
@@ -160,7 +161,7 @@ nnoremap <leader>a :Ack
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 "nnoremap <leader>p :CtrlP .<CR>
 "nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <C-b> :CtrlPBuffer<CR>
+"nnoremap <C-b> :CtrlPBuffer<CR>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP .'
 "let g:ctrlp_working_path_mode = 'ra'
