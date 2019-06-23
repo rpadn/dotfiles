@@ -126,7 +126,6 @@ export EDITOR='vim'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=239"
 
 unalias ta
-unalias td
 unalias tad
 unalias ts
 unalias tl
