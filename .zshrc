@@ -81,6 +81,20 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# This speeds up pasting w/ autosuggest
+# https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -111,13 +125,14 @@ export EDITOR='vim'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=239"
 
-# tmux
 unalias ta
+unalias td
 unalias tad
 unalias ts
 unalias tl
 unalias tksv
 unalias tkss
+# tmux
 alias tma='tmux attach -t'
 alias tmad='tmux attach -d -t'
 alias tms='tmux new-session -s'
@@ -126,11 +141,17 @@ alias tmksv='tmux kill-server'
 alias tmkss='tmux kill-session -t'
 
 # taskwarrior
-alias tl='task list'
-alias tlo='task long'
+alias ts='task start'
+alias td='task done'
+alias tp='task stop'
 alias ta='task add'
 alias tm='task modify'
 alias te='task edit'
 alias tre='task ready'
 
 alias config='/usr/bin/git --git-dir=/home/rpadn/.cfg/ --work-tree=/home/rpadn'
+
+# git override
+alias gap='git add -p'
+alias glo='git log'
+
