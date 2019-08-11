@@ -11,9 +11,16 @@ export ZSH="/home/rpadn/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="spaceship-prompt/spaceship"
+#ZSH_THEME="spaceship-prompt/spaceship"
+#export SPACESHIP_BATTERY_SHOW=false
+#ZSH_THEME="dracula"
 
-export SPACESHIP_BATTERY_SHOW=false
+
+# Pure theme
+PURE_PROMPT_SYMBOL='»'
+autoload -U promptinit; promptinit
+prompt pure
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -81,20 +88,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# This speeds up pasting w/ autosuggest
-# https://github.com/zsh-users/zsh-autosuggestions/issues/238
-pasteinit() {
-  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
-  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
-}
-
-pastefinish() {
-  zle -N self-insert $OLD_SELF_INSERT
-}
-zstyle :bracketed-paste-magic paste-init pasteinit
-zstyle :bracketed-paste-magic paste-finish pastefinish
-
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -154,3 +147,8 @@ alias config='/usr/bin/git --git-dir=/home/rpadn/.cfg/ --work-tree=/home/rpadn'
 alias gap='git add -p'
 alias glo='git log'
 
+
+# autostart X11
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi
