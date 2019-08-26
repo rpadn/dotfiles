@@ -40,6 +40,9 @@ set shiftwidth=4
 set autoindent
 set colorcolumn=120
 
+" Use system clipboard
+set clipboard=unnamed
+
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=119 expandtab autoindent
 au BufNewFile,BufRead *.py
@@ -230,4 +233,9 @@ nnoremap <leader>t :Tagbar<CR>
 
 " vim-jedi
 let g:jedi#usages_command = "<leader>u"
+
+" ale
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
 
