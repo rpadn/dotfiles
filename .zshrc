@@ -2,6 +2,7 @@ export TERM="xterm-256color"
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$PATH
+export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/rpadn/.oh-my-zsh"

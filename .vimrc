@@ -1,184 +1,184 @@
-" Tell vim to remember certain things when we exit
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set nocompatible  " Required
+filetype off      " Required
 
-" Return to last edit position when opening files (You want this!)
-"if has("autocmd")
-"   au BufReadPost * if line("'\"""'") > 0 && line("'\"""'") <= line("$")
-"   \| exe "normal! g'\"" | endif
-"endif
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Show (partial) command in status line.
-set showcmd
-" Show matching brackets.
-set showmatch
-" Do case insensitive matching
-set ignorecase
-" Do smart case matching
-set smartcase
-" Incremental search
-set incsearch
-" Automatically save before commands like :next and
-"set autowrite
-" Hide buffers when they are abandoned
-set hidden
-" Enable mouse usage (all modes)
-set mouse=a
-" For regular expressions turn magic on
-set magic
+" Let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
+" Add all your plugins here
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-repeat'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'sickill/vim-monokai'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'psf/black'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'majutsushi/tagbar'
+Plugin 'dense-analysis/ale'
+Plugin 'ludovicchabant/vim-gutentags'
 
-set textwidth=119
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
-set colorcolumn=120
+" All of your Plugins must be added before the following line
+call vundle#end()          " Required
+filetype plugin indent on  " Required
 
-" Use system clipboard
+" Split navigations
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
+
+" Enable folding
+"set foldmethod=indent
+"set foldlevel=99
+
+" Map leader key to comma
+nnoremap , <Nop>
+let mapleader = ","
+
+" Enable folding with the spacebar
+"nnoremap <Leader>w za
+
+" split vertically
+nnoremap <leader>v :vsplit<CR>
+" split horizontally
+nnoremap <leader>h :split<CR>
+
+" Removes highlight of last search
+nnoremap <Leader><space> :nohl<CR>
+
+" New empty buffer
+nnoremap <leader>b :tabnew<CR>
+
+" Make backspace work as normal again
+set bs=2
+
+" Proper PEP8 indentation
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=88 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+" Full-stack development indentation
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+" Shell scripts
+au BufNewFile,BufRead *.csh
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
+" yaml files
+au BufNewFile,BufRead *.yaml
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
+" jenkinsfile
+au BufNewFile,BufRead *.groovy,Jenkinsfile setf groovy
+
+" Commands for converting whole indentation to spaces and tabs
+"map <Leader>t :set ts=4 noet <bar> retab!<CR> 
+"map <Leader>T :set ts=4 et <bar> retab!<CR>
+
+" Flagging unnecessary whitespace
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Set enconding properly
+set encoding=utf-8
+
+" Make code look pretty!
+let python_highlight_all=1
+syntax enable
+
+" System clipboard available
 set clipboard=unnamed
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=119 expandtab autoindent
-au BufNewFile,BufRead *.py
-    \ nnoremap <buffer> <F5> :exec '!python' shellescape(@%, 1)<CR>
+" faster esc
+inoremap jj <esc>
 
-au BufNewFile,BufRead *.html
-    \ set tabstop=2 softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.css
-    \ set tabstop=2 softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.scss
-    \ set tabstop=2 softtabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.js
-    \ set tabstop=2 softtabstop=2 shiftwidth=2
+" Quick commands
+noremap <leader>w :w<CR>
+noremap <leader>q :q<CR> 
+"noremap <Leader>E :qa!<CR>  " Quit all windows
+nnoremap <leader>c :bd<CR> " Unload current buffer
 
-" Highlight current line
-set cursorline  
-
-set backspace=indent,eol,start 
-
-set hlsearch
-set so=10
-
-set backup
-set backupdir=~/.vim/backup
-set directory=~/.vim/tmp
-
-command WQ wq
-command Wq wq
-command W w
-command Q q
-
-
-set number
-set scrolloff=5       " keep at least 5 lines above/below
-
-set cot+=menuone
-set incsearch
-
-set encoding=utf-8
-set listchars=tab:▸\ ,eol:¬
-
-syntax enable
-set t_Co=256 
-filetype on
-filetype plugin indent on
-
-"set font 
-"set gfn=Hack\ Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-
-
-" This is totally awesome - remap jj to escape in insert mode.  You'll never
-" type jj anyway, so it's great!
-inoremap jj <Esc>
-
-let mapleader = ","
-" split vertically
-nnoremap <leader>v <C-w>v<C-w>l
-" split horizontally
-nnoremap <leader>h <C-w>s<C-w>j
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" on esc clean search highlight
-nnoremap <leader><space> :noh<esc>
-
-" Tab navigation
-nnoremap <leader><tab> :bnext<CR>
-nnoremap <leader><S-tab> :bprev<CR>
-" close buffer only with NERDTree open
-nnoremap <leader>c :bp<cr>:bd #<cr>
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<CR>
-" Quick save
-map <leader>w :w<CR>
-" Quick close
-map <leader>q :q<CR>
+" Close all buffers but current
+map <leader>o :%bd\|e#<cr>
 
 " Quickly open a buffer for scribble
-map <leader>e :e ~/buffer<cr>
+map <leader>e :e ~/.vim/tmp/buffer<cr>
 
+" Easier moving between tabs
+map <Leader>, <Esc>:tabprevious<CR>
+map <Leader>. <Esc>:tabnext<CR>
 
-au BufNewFile *.py 0r ~/.vim/skeletons/python.skel | let IndentStyle = "python"
+" Map sort function to a key
+vnoremap <Leader>s :sort<CR>
 
-""""""""""""""""""""""""""""""""
+" Easier moving of code blocks
+vnoremap < <gv " Better indentation
+vnoremap > >gv " Better indentation
 
-""""""" P L U G I N S """"""""""
+" Showing line numbers and length
+set number " Show line numbers
+set tw=79  " Width of document (used by gd)
+set nowrap " Don't automatically wrap on load
+set fo-=t  " Don't automatically wrap text when typing
+set colorcolumn=80
+highlight ColorColumn ctermbg=2
+"noremap <Leader>l :set invnumber<CR>
 
-""""""""""""""""""""""""""""""""
-"  pathogen
-" just put new plugins in .vim/bundle and thats'it!
-call pathogen#infect()
+" Make search case insensitive
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
+" Disable backup and swap files, they trigger too many events for watchers
+set nobackup
+set nowritebackup
+set noswapfile
 
-" colorscheme 
-"let g:solarized_termcolors=256
-set background=dark " dark | light "
-colorscheme solarized
+" Syntax highlight Giggle scripts as LUA
+au BufReadPost *.ggl set syntax=lua
 
+" Toggle paste mode on an off, specially for pasting code lines
+:nnoremap <leader>pp :set invpaste<CR>
+    
+" Toggle invisible characters
+set listchars=tab:»\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
 
-" ack
-nnoremap <leader>a :Ack 
-
-
-"  MiniBufExplorer
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplMapWindowNavArrows = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplModSelTarget = 1 
- 
-
-" ctrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-"nnoremap <leader>p :CtrlP .<CR>
-"nnoremap <leader>b :CtrlPBuffer<CR>
-"nnoremap <C-b> :CtrlPBuffer<CR>
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP .'
-"let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'ca'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-
-" vim-airline
-" Always show the status line
+" =============================================================================
+" Plugin settings
+" =============================================================================
+" vim-airline -----------------------------------------------------------------
+let g:airline_powerline_fonts = 0
+let g:airline_theme='dark'
 set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'solarized'
-let g:airline_solarized_bg = 'dark'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -191,51 +191,41 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-"nmap <leader>n <Plug>AirlineSelectPrevTab
-"nmap <leader>p <Plug>AirlineSelectNextTab
+nmap <leader><tab> <Plug>AirlineSelectPrevTab
+nmap <leader><shift><tab> <Plug>AirlineSelectNextTab
 
+" NERDTree --------------------------------------------------------------------
+map <leader>t :NERDTreeToggle<CR>
+map <leader>n :NERDTreeFind<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_python_python_exec = '/usr/bin/python3'
+" CtrlP -----------------------------------------------------------------------
+let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_custom_ignore = 'otls|\.git|\.build'
+nnoremap <C-T> :CtrlPTag<CR>
+" use ctrlp-py-matcher
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
+" Papercolor-theme ------------------------------------------------------------
+set background=dark
+colorscheme PaperColor
+"colorscheme monokai
 
-" Syntax highliting
-" cpp
-let g:cpp_class_scope_highlight = 1
-" python
-let python_highlight_all=1
+" Ack -------------------------------------------------------------------------
+nnoremap <leader>a :Ack 
 
-
-" NERDTree
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<cr>
-
-" Start NERDTree
-autocmd VimEnter * NERDTreeFind
-" Jump to the main window.
-autocmd VimEnter * wincmd p
-
-
-" Close if last tab is NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && 
-    \ b:NERDTree.isTabTree()) | q | endif
-
-" TagBar
-nnoremap <leader>t :Tagbar<CR>
-
-" vim-jedi
+" vim-jedi --------------------------------------------------------------------
+let g:jedi#popup_on_dot = 0
 let g:jedi#usages_command = "<leader>u"
 
-" ale
+" tagbar ----------------------------------------------------------------------
+nmap <F8> :TagbarToggle<CR>
+
+" vim-fugitive/vim-rhubarb
+" github enterprise for GBrowse
+let g:github_enterprise_urls = ['https://github.ps.thmulti.com']
+
+" ALE -------------------------------------------------------------------------
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
-
