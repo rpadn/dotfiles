@@ -12,7 +12,7 @@ font = FiraCode 9
 foreground      = #c5c8c6
 foreground_bold = #c5c8c6
 cursor          = #c5c8c6
-background      = #1d1f21
+background      = #1c1c1a
 
 # black
 color0  = #282a2e
