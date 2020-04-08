@@ -83,6 +83,8 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   taskwarrior
+  docker
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
