@@ -34,6 +34,9 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'cespare/vim-toml'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'preservim/nerdcommenter'
+" test ------------------------------------------------------------------------
+Plugin 'vim-test/vim-test'
+Plugin 'tpope/vim-dispatch'
 " python ----------------------------------------------------------------------
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
@@ -316,3 +319,10 @@ let g:gitgutter_enabled = 1
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_undodir = 'undodir'
 let g:workspace_create_new_tabs = 0
+
+" vim-test --------------------------------------------------------------------
+nmap <leader>tn :TestNearest<CR>
+nmap <leader>tf :TestFile<CR>
+nmap <leader>tt :TestSuite<CR>
+nmap <leader>tl :TestLast<CR>
+nmap <leader>tv :TestVisit<CR>
