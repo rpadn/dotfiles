@@ -8,38 +8,42 @@ call vundle#begin()
 " Let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" Add all your plugins here
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
+" search ----------------------------------------------------------------------
 Plugin 'mileszs/ack.vim'
-"Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'junegunn/fzf.vim'
+" git -------------------------------------------------------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'rbong/vim-flog'
+Plugin 'airblade/vim-gitgutter'
+" misc ------------------------------------------------------------------------
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-vinegar'
+Plugin 'thaerkh/vim-workspace'
+" Look and feel ---------------------------------------------------------------
+Plugin 'majutsushi/tagbar'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sickill/vim-monokai'
 Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'christoomey/vim-tmux-navigator'
+" dev -------------------------------------------------------------------------
+Plugin 'cespare/vim-toml'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'preservim/nerdcommenter'
+" python ----------------------------------------------------------------------
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
 Plugin 'davidhalter/jedi-vim'
 " Requires python3 support
 "Plugin 'psf/black'
 Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'majutsushi/tagbar'
 Plugin 'dense-analysis/ale'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'cespare/vim-toml'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-python/python-syntax'
-Plugin 'sheerun/vim-polyglot'
-
-
 
 " All of your Plugins must be added before the following line
 call vundle#end()          " Required
@@ -56,8 +60,8 @@ nnoremap <C-h> <C-w><C-h>
 "set foldlevel=99
 
 " Map leader key to comma
-nnoremap , <Nop>
-let mapleader = ","
+nnoremap <SPACE> <Nop>
+let mapleader = " "
 
 " Enable folding with the spacebar
 "nnoremap <Leader>w za
@@ -131,7 +135,8 @@ syntax enable
 set clipboard=unnamed
 
 " Persistent undo, even if you close and reopen Vim
-set undofile
+"set undodir=~/.vim/undo-dir/
+"set undofile
 
 " faster esc
 inoremap jj <esc>
@@ -154,7 +159,7 @@ map <Leader>, <Esc>:bprev<CR>
 map <Leader>. <Esc>:bnext<CR>
 
 " Map sort function to a key
-vnoremap <Leader>s :sort<CR>
+vnoremap <Leader>S :sort<CR>
 
 " Easier moving of code blocks
 vnoremap < <gv " Better indentation
@@ -242,11 +247,13 @@ colorscheme PaperColor
 "colorscheme monokai
 
 " Ack -------------------------------------------------------------------------
-nnoremap <leader>a :Ack! 
+nnoremap <leader>s :Ack! 
 
 " vim-jedi --------------------------------------------------------------------
 let g:jedi#popup_on_dot = 0
 let g:jedi#usages_command = "<leader>u"
+" conflicts with <leader>s
+let g:jedi#goto_stubs_command = ""
 
 " tagbar ----------------------------------------------------------------------
 nmap <leader>t :TagbarToggle<CR>
@@ -304,3 +311,8 @@ silent! helptags ALL
 set updatetime=100
 set signcolumn=yes
 let g:gitgutter_enabled = 1
+
+" vim-workspace ---------------------------------------------------------------
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_undodir = 'undodir'
+let g:workspace_create_new_tabs = 0
