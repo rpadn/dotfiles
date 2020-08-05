@@ -34,7 +34,7 @@ Plugin 'NLKNguyen/papercolor-theme'
 " dev -------------------------------------------------------------------------
 Plugin 'cespare/vim-toml'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'preservim/nerdcommenter'
+Plugin 'tpope/vim-commentary'
 " test ------------------------------------------------------------------------
 Plugin 'vim-test/vim-test'
 Plugin 'tpope/vim-dispatch'
