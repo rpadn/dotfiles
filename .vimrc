@@ -24,6 +24,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-vinegar'
 Plugin 'thaerkh/vim-workspace'
+Plugin 'tpope/vim-projectionist'
 " Look and feel ---------------------------------------------------------------
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-airline/vim-airline'
