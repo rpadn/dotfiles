@@ -9,9 +9,10 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " search ----------------------------------------------------------------------
-Plugin 'mileszs/ack.vim'
+"Plugin 'mileszs/ack.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 " git -------------------------------------------------------------------------
 Plugin 'tpope/vim-fugitive'
@@ -25,6 +26,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-vinegar'
 Plugin 'thaerkh/vim-workspace'
 Plugin 'tpope/vim-projectionist'
+Plugin 'MattesGroeger/vim-bookmarks'
 " Look and feel ---------------------------------------------------------------
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-airline/vim-airline'
@@ -71,9 +73,9 @@ let mapleader = " "
 "nnoremap <Leader>w za
 
 " split vertically
-nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>V :vsplit<CR>
 " split horizontally
-nnoremap <leader>h :split<CR>
+nnoremap <leader>H :split<CR>
 
 " Removes highlight of last search
 nnoremap <Leader><space> :nohl<CR>
@@ -239,8 +241,8 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 "let g:ctrlp_custom_ignore = 'otls|\.git|\.build'
 let g:ctrlp_show_hidden = 1
-nnoremap <C-T> :CtrlPTag<CR>
-nnoremap <C-E> :CtrlPBuffer<CR>
+"nnoremap <C-T> :CtrlPTag<CR>
+"nnoremap <C-E> :CtrlPBuffer<CR>
 " use ctrlp-py-matcher
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_match_window = 'results:100' " overcome limit imposed by max height
@@ -250,9 +252,6 @@ set background=dark
 colorscheme PaperColor
 "colorscheme monokai
 
-" Ack -------------------------------------------------------------------------
-nnoremap <leader>s :Ack! 
-
 " vim-jedi --------------------------------------------------------------------
 let g:jedi#popup_on_dot = 0
 let g:jedi#usages_command = "<leader>u"
@@ -260,7 +259,7 @@ let g:jedi#usages_command = "<leader>u"
 let g:jedi#goto_stubs_command = ""
 
 " tagbar ----------------------------------------------------------------------
-nmap <leader>t :TagbarToggle<CR>
+nmap <leader>T :TagbarToggle<CR>
 let g:tagbar_type_yaml = {
     \ 'ctagstype' : 'yaml',
     \ 'kinds' : [
@@ -322,8 +321,23 @@ let g:workspace_undodir = 'undodir'
 let g:workspace_create_new_tabs = 0
 
 " vim-test --------------------------------------------------------------------
+let test#strategy = 'dispatch'
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
 nmap <leader>tt :TestSuite<CR>
 nmap <leader>tl :TestLast<CR>
 nmap <leader>tv :TestVisit<CR>
+
+" fzf.vim ---------------------------------------------------------------------
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -g ""'
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fl :BLines<CR>
+nnoremap <leader>ft :BTags<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>ta :Tags<CR>
+nnoremap <leader>m :Marks<CR>
+nnoremap <leader>hh :History<CR>
+" Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+nnoremap <leader>s :Ag <CR>
+nnoremap <leader>S :Ag <C-R><C-W><CR> 
