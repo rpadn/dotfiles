@@ -5,6 +5,7 @@ font = FiraCode 9
 #font = TerminessTTF Nerd Font 9
 #font = Terminus 9
 
+scrollback_lines = 10000
 # Papercolor dark
 # from terminal.sexy
 [colors]
