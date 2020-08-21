@@ -1,7 +1,7 @@
 export TERM="xterm-256color"
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
 
 # Path to your oh-my-zsh installation.
@@ -17,6 +17,7 @@ export ZSH="/home/rpadn/.oh-my-zsh"
 #ZSH_THEME="dracula"
 
 
+fpath+=$HOME/.zsh/pure
 # Pure theme
 PURE_PROMPT_SYMBOL='»'
 autoload -U promptinit; promptinit
@@ -80,11 +81,13 @@ plugins=(
   sudo
   history
   tmux
+  fzf
   zsh-autosuggestions
   zsh-syntax-highlighting
   taskwarrior
   docker
   docker-compose
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -150,6 +153,8 @@ alias config='/usr/bin/git --git-dir=/home/rpadn/.cfg/ --work-tree=/home/rpadn'
 alias gap='git add -p'
 alias glo='git log'
 
+# gtags
+export GTAGSLABEL=pygments
 
 # autostart X11
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
