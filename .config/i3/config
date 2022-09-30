@@ -136,10 +136,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -163,18 +163,13 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Borderless apps
 new_window normal
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 
 # Assign workspace
-assign [class="Google-chrome"] 2
-assign [class="Microsoft Teams - Preview"] 5
-
-# Teams notification needs to be floating otherwise acts like a normal window
-for_window [title="Microsoft Teams Notification"] floating enable
+assign [class="firefox"] 2
 
 # Shortcuts
-bindsym $mod+w exec google-chrome-stable
-bindsym $mod+t exec teams
+bindsym $mod+w exec firefox
 
 # Auto started apps
 exec parcellite

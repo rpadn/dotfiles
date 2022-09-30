@@ -9,15 +9,13 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " search ----------------------------------------------------------------------
-"Plugin 'mileszs/ack.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 " git -------------------------------------------------------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'rbong/vim-flog'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'shumphrey/fugitive-gitlab.vim'
 " misc ------------------------------------------------------------------------
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-surround'
@@ -27,6 +25,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'thaerkh/vim-workspace'
 Plugin 'tpope/vim-projectionist'
 Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'unblevable/quick-scope'
 " Look and feel ---------------------------------------------------------------
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-airline/vim-airline'
@@ -44,12 +43,15 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'davidhalter/jedi-vim'
-" Requires python3 support
-"Plugin 'psf/black'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'dense-analysis/ale'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'vim-python/python-syntax'
+Plugin 'sillybun/vim-repl'
+" go --------------------------------------------------------------------------
+Plugin 'fatih/vim-go'
+" REST ------------------------------------------------------------------------
+Plugin 'diepm/vim-rest-console'
 
 " All of your Plugins must be added before the following line
 call vundle#end()          " Required
@@ -97,17 +99,21 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix
 
+" go
+au BufNewFile,BufRead *.go
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=80 |
+    \ set colorcolumn=80 |
+    \ set autoindent |
+    \ set fileformat=unix
+
 " Full-stack development indentation
 au BufNewFile,BufRead *.js,*.html,*.css
     \ set tabstop=2 |
     \ set softtabstop=2 |
-    \ set shiftwidth=2
-
-" Shell scripts
-au BufNewFile,BufRead *.csh
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
+    \ set shiftwidth=2 
 
 " yaml files
 au BufNewFile,BufRead *.yaml
@@ -117,9 +123,6 @@ au BufNewFile,BufRead *.yaml
 
 " jenkinsfile
 au BufNewFile,BufRead *.groovy,Jenkinsfile setf groovy
-
-" Syntax highlight Giggle scripts as LUA
-au BufNewFile,BufRead *.ggl set syntax=lua
 
 " Convert whole indentation to tabs
 map <Leader>tt :set ts=4 noet <bar> retab!<CR>
@@ -139,6 +142,9 @@ syntax enable
 
 " System clipboard available
 set clipboard=unnamed
+
+" List all characters
+set listchars+=space:␣
 
 " Persistent undo, even if you close and reopen Vim
 "set undodir=~/.vim/undo-dir/
@@ -207,7 +213,10 @@ nmap <leader>p :let @+=expand('%:p')<CR>
 nnoremap <leader>x !!zsh<CR>
 
 " netrw uses rmdir by default
-let g:netrw_localrmdir='rm -r'
+let g:netrw_localrmdir='rm -rf'
+
+" Per-project settings
+silent! so .vimlocal
 
 " =============================================================================
 " Plugin settings
@@ -230,22 +239,6 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader><tab> <Plug>AirlineSelectPrevTab
 nmap <leader><shift><tab> <Plug>AirlineSelectNextTab
-
-" NERDTree --------------------------------------------------------------------
-"map <leader>n :NERDTreeToggle<CR>
-"map <leader>nf :NERDTreeFind<CR>
-"let NERDTreeIgnore=['\.pyc$', '\~$']
-
-" CtrlP -----------------------------------------------------------------------
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-"let g:ctrlp_custom_ignore = 'otls|\.git|\.build'
-let g:ctrlp_show_hidden = 1
-"nnoremap <C-T> :CtrlPTag<CR>
-"nnoremap <C-E> :CtrlPBuffer<CR>
-" use ctrlp-py-matcher
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_match_window = 'results:100' " overcome limit imposed by max height
 
 " Papercolor-theme ------------------------------------------------------------
 set background=dark
@@ -293,6 +286,9 @@ let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_linters = {
+" \   'python': ['flake8', 'mypy'],
+" \}
 let g:ale_linters = {
 \   'python': ['flake8'],
 \}
@@ -310,18 +306,14 @@ nmap <leader>n <Plug>(ale_next_wrap)
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-" vim-gitgutter ---------------------------------------------------------------
-set updatetime=100
-set signcolumn=yes
-let g:gitgutter_enabled = 1
-
 " vim-workspace ---------------------------------------------------------------
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-let g:workspace_undodir = 'undodir'
+let g:workspace_undodir = '.undodir'
 let g:workspace_create_new_tabs = 0
 
 " vim-test --------------------------------------------------------------------
 let test#strategy = 'dispatch'
+let test#python#runner = 'pytest'
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
 nmap <leader>tt :TestSuite<CR>
@@ -329,7 +321,9 @@ nmap <leader>tl :TestLast<CR>
 nmap <leader>tv :TestVisit<CR>
 
 " fzf.vim ---------------------------------------------------------------------
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -g ""'
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>ft :BTags<CR>
@@ -340,4 +334,12 @@ nnoremap <leader>hh :History<CR>
 " Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 nnoremap <leader>s :Ag <CR>
-nnoremap <leader>S :Ag <C-R><C-W><CR> 
+nnoremap <leader>S :Ag <C-R><C-W><CR>
+
+" vim-repl --------------------------------------------------------------------
+nnoremap <leader>It :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>Ii"
+
+" quick-scope -----------------------------------------------------------------
+highlight QuickScopePrimary guifg='#ffff00' gui=underline ctermfg=226 cterm=underline
+highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=underline

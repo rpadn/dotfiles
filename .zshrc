@@ -78,34 +78,34 @@ prompt pure
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  sudo
   history
   tmux
   fzf
   zsh-autosuggestions
   zsh-syntax-highlighting
-  taskwarrior
   docker
-  docker-compose
-  z
+  kubectl
+  bazel
+  zsh-vi-mode
+  pdm
 )
+
+# Fix slow paste (see https://apple.stackexchange.com/a/384160)
+DISABLE_MAGIC_FUNCTIONS=true
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
+#
+# Fix vi-mode stealing CTRL+R to fzf 
+zvm_after_init_commands+=("bindkey '^R' fzf-history-widget")
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
-#if [[ -n $SSH_CONNECTION ]]; then
-#  export EDITOR='vim'
-#else
-#  export EDITOR='mvim'
-#fi
+alias vi='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -124,12 +124,6 @@ export EDITOR='vim'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=239"
 
-unalias ta
-unalias tad
-unalias ts
-unalias tl
-unalias tksv
-unalias tkss
 # tmux
 alias tma='tmux attach -t'
 alias tmad='tmux attach -d -t'
@@ -138,25 +132,26 @@ alias tml='tmux list-sessions'
 alias tmksv='tmux kill-server'
 alias tmkss='tmux kill-session -t'
 
-# taskwarrior
-alias ts='task start'
-alias td='task done'
-alias tp='task stop'
-alias ta='task add'
-alias tm='task modify'
-alias te='task edit'
-alias tre='task ready'
-
 alias config='/usr/bin/git --git-dir=/home/rpadn/.cfg/ --work-tree=/home/rpadn'
 
 # git override
 alias gap='git add -p'
 alias glo='git log'
 
+# exa over ls
+alias ls='exa'
+alias ll='ls -lh --git'
+
 # gtags
 export GTAGSLABEL=pygments
+
+# pyenv setup https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # autostart X11
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
+
