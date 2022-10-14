@@ -164,7 +164,7 @@ nnoremap <leader>C :bd!<CR> " Force unload current buffer
 map <leader>o :%bd\|e#<cr>
 
 " Quickly open a buffer for scribble
-map <leader>e :e ~/.vim/tmp/buffer<cr>
+map <leader>e :vnew<cr>
 
 " Easier moving between tabs
 map <Leader>, <Esc>:bprev<CR>
@@ -329,7 +329,6 @@ nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>ft :BTags<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>ta :Tags<CR>
-nnoremap <leader>m :Marks<CR>
 nnoremap <leader>hh :History<CR>
 " Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
