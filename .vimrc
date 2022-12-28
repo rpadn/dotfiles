@@ -299,7 +299,7 @@ nnoremap <leader>S :Ag <C-R><C-W><CR>
 
 " vim-repl --------------------------------------------------------------------
 nnoremap <leader>P :REPLToggle<Cr>
-let g:sendtorepl_invoke_key = "p"
+let g:sendtorepl_invoke_key = "<leader>p"
 
 
 " quick-scope -----------------------------------------------------------------
