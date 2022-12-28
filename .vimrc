@@ -1,62 +1,52 @@
-set nocompatible  " Required
-filetype off      " Required
-
-" Set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
 " search ----------------------------------------------------------------------
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " git -------------------------------------------------------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'rbong/vim-flog'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'shumphrey/fugitive-gitlab.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+Plug 'airblade/vim-gitgutter'
+Plug 'shumphrey/fugitive-gitlab.vim'
 " misc ------------------------------------------------------------------------
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-vinegar'
-Plugin 'thaerkh/vim-workspace'
-Plugin 'tpope/vim-projectionist'
-Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'unblevable/quick-scope'
-Plugin 'milkypostman/vim-togglelist'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-vinegar'
+Plug 'thaerkh/vim-workspace'
+Plug 'tpope/vim-projectionist'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'unblevable/quick-scope'
+Plug 'milkypostman/vim-togglelist'
 " Look and feel ---------------------------------------------------------------
-Plugin 'itchyny/lightline.vim'
-Plugin 'mengelbrecht/lightline-bufferline'
-Plugin 'maximbaz/lightline-ale'
-Plugin 'sickill/vim-monokai'
-Plugin 'NLKNguyen/papercolor-theme'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'maximbaz/lightline-ale'
+Plug 'sickill/vim-monokai'
+Plug 'NLKNguyen/papercolor-theme'
 " dev -------------------------------------------------------------------------
-Plugin 'cespare/vim-toml'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-commentary'
+Plug 'cespare/vim-toml'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
 " test ------------------------------------------------------------------------
-Plugin 'vim-test/vim-test'
-Plugin 'tpope/vim-dispatch'
+Plug 'vim-test/vim-test'
+Plug 'tpope/vim-dispatch'
 " python ----------------------------------------------------------------------
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'dense-analysis/ale'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'vim-python/python-syntax'
-Plugin 'sillybun/vim-repl'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'nvie/vim-flake8'
+Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'dense-analysis/ale'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-python/python-syntax'
+Plug 'sillybun/vim-repl'
 " go --------------------------------------------------------------------------
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 " REST ------------------------------------------------------------------------
-Plugin 'diepm/vim-rest-console'
+Plug 'diepm/vim-rest-console'
 
-" All of your Plugins must be added before the following line
-call vundle#end()          " Required
-filetype plugin indent on  " Required
+call plug#end()
 
 " Split navigations
 nnoremap <C-j> <C-w><C-j>
@@ -132,7 +122,6 @@ set encoding=utf-8
 
 " Make code look pretty!
 let python_highlight_all=1
-syntax enable
 
 " System clipboard available
 set clipboard=unnamed
