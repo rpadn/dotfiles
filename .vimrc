@@ -319,8 +319,8 @@ nnoremap <leader>s :Ag <CR>
 nnoremap <leader>S :Ag <C-R><C-W><CR>
 
 " vim-repl --------------------------------------------------------------------
-nnoremap <leader>P :REPLToggle<Cr>
-let g:sendtorepl_invoke_key = "<leader>p"
+nnoremap <leader>R :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>rp"
 
 
 " quick-scope -----------------------------------------------------------------
