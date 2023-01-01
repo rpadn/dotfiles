@@ -1,15 +1,15 @@
 call plug#begin()
 
-" search ----------------------------------------------------------------------
+" Search ----------------------------------------------------------------------
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-" git -------------------------------------------------------------------------
+" Git -------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
-Plug 'shumphrey/fugitive-gitlab.vim'
-" misc ------------------------------------------------------------------------
 Plug 'tpope/vim-rhubarb'
+Plug 'shumphrey/fugitive-gitlab.vim'
+" Misc ------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -25,28 +25,29 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'maximbaz/lightline-ale'
 Plug 'sickill/vim-monokai'
 Plug 'NLKNguyen/papercolor-theme'
-" dev -------------------------------------------------------------------------
-Plug 'cespare/vim-toml'
+" Dev -------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-" test ------------------------------------------------------------------------
+" Plug 'ludovicchabant/vim-gutentags'
+" Testing ---------------------------------------------------------------------
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
-" python ----------------------------------------------------------------------
-Plug 'vim-scripts/indentpython.vim'
-Plug 'nvie/vim-flake8'
-Plug 'davidhalter/jedi-vim'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'dense-analysis/ale'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-python/python-syntax'
-Plug 'sillybun/vim-repl'
-" go --------------------------------------------------------------------------
-Plug 'fatih/vim-go'
 " REST ------------------------------------------------------------------------
 Plug 'diepm/vim-rest-console'
 
+" LSP -------------------------------------------------------------------------
+Plug 'dense-analysis/ale'
+" python ----------------------------------------------------------------------
+Plug 'vim-scripts/indentpython.vim'
+Plug 'sillybun/vim-repl'
+" go --------------------------------------------------------------------------
+Plug 'fatih/vim-go'
+
 call plug#end()
+
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
 
 " Split navigations
 nnoremap <C-j> <C-w><C-j>
@@ -67,7 +68,7 @@ nnoremap <leader>H :split<CR>
 nnoremap <Leader><space> :nohl<CR>
 
 " New empty buffer
-nnoremap <leader>b :enew<CR>
+nnoremap <leader>bn :enew<CR>
 
 " Make backspace work as normal again
 set bs=2
@@ -107,6 +108,9 @@ au BufNewFile,BufRead *.yaml
 
 " jenkinsfile
 au BufNewFile,BufRead *.groovy,Jenkinsfile setf groovy
+
+" vimlocal
+au BufNewFile,BufRead *.vimlocal setf vim
 
 " Convert whole indentation to tabs
 map <Leader>tt :set ts=4 noet <bar> retab!<CR>
@@ -233,40 +237,57 @@ let g:lightline#ale#indicator_ok = "\uf00c"
 set background=dark
 colorscheme PaperColor
 
-" vim-jedi --------------------------------------------------------------------
-let g:jedi#usages_command = "<leader>u"
-" conflicts with <leader>s
-let g:jedi#goto_stubs_command = ""
-let g:jedi#smart_auto_mapping = 1
-let g:jedi#use_splits_not_buffers = "right"
-
-" vim-gutentags --------------------------------------------------------------
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['environment.yaml', '.git']
-
 " ALE -------------------------------------------------------------------------
+let g:ale_linters = {
+\   'python': ['pylsp']
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort']
+\}
+let g:ale_python_pylsp_config={'pylsp': {
+  \ 'configurationSources': ['flake8'],
+  \ 'plugins': {
+  \   'pycodestyle': {'enabled': v:false},
+  \   'pyflakes': {'enabled': v:false},
+  \   'pydocstyle': {'enabled': v:false},
+  \   'mccabe': {'enabled': v:false},
+  \   'flake8': {'enabled': v:true},
+  \   'pylsp_mypy': {'enabled': v:true, 'live_mode': v:false},
+  \   'pylsp_black': {'enabled': v:true},
+  \   'pyls_isort': {'enabled': v:true},
+  \ },
+  \ }}
+" let g:ale_python_pylsp_options = '--log-file /home/rpadn/dev/tmp/pylsp.log -vvv'
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-let g:ale_linters = {
-\   'python': ['flake8', 'mypy'],
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black', 'isort'],
-\}
+let g:ale_floating_preview = 1
 
-nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+" autocomplete
+let g:ale_completion_enabled = 1
+" enable popup over split window for inline docs
+set completeopt=menu,menuone,popup,noselect,noinsert
+set omnifunc=ale#completion#OmniFunc
 
+" mappings
+nmap gd <Plug>(ale_go_to_definition_in_vsplit)
+nmap <leader>rn <Plug>(ale_rename)
+nmap <leader>rf <Plug>(ale_filerename)
+nmap <leader>u <Plug>(ale_find_references)
 nmap <F8> <Plug>(ale_fix)
+" diagnostic
+nmap K <Plug>(ale_hover)
+nmap <leader>E <Plug>(ale_detail)
 nmap <leader>N <Plug>(ale_previous_wrap)
 nmap <leader>n <Plug>(ale_next_wrap)
 
-" Load all of the helptags now, after plugins have been loaded.
-" All messages and errors will be ignored.
-silent! helptags ALL
+" autocomplete with c-space (https://stackoverflow.com/a/31909227)
+inoremap <C-Space> <Plug>(ale_complete)
+imap <buffer> <Nul> <C-Space>
+smap <buffer> <Nul> <C-Space>
 
 " vim-workspace ---------------------------------------------------------------
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
@@ -289,7 +310,7 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>ft :BTags<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>bb :Buffers<CR>
 nnoremap <leader>ta :Tags<CR>
 nnoremap <leader>hh :History<CR>
 " Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
