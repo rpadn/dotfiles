@@ -192,12 +192,41 @@ set background=dark
 colorscheme PaperColor
 
 " ALE -------------------------------------------------------------------------
-let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 1
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%] %s'
 let g:ale_floating_preview = 1
+let g:ale_completion_symbols = {
+\  'text': 'text',
+\  'method': 'method',
+\  'function': 'function',
+\  'constructor': 'constructor',
+\  'field': 'field',
+\  'variable': 'variable',
+\  'class': 'class',
+\  'interface': 'interface',
+\  'module': 'module',
+\  'property': 'property',
+\  'unit': 'unit',
+\  'value': 'value',
+\  'enum': 'enum',
+\  'keyword': 'keyword',
+\  'snippet': 'snippet',
+\  'color': 'color',
+\  'file': 'file',
+\  'reference': 'reference',
+\  'folder': 'folder',
+\  'enum_member': 'enum member',
+\  'constant': 'constant',
+\  'struct': 'struct',
+\  'event': 'event',
+\  'operator': 'operator',
+\  'type_parameter': 'type param',
+\  '<default>': 'default'
+\}
 
 " autocomplete
 let g:ale_completion_enabled = 1
@@ -210,7 +239,6 @@ nmap gd <Plug>(ale_go_to_definition_in_vsplit)
 nmap <leader>rn <Plug>(ale_rename)
 nmap <leader>rf <Plug>(ale_filerename)
 nmap <leader>fr :ALEFindReferences -relative -quickfix<CR>
-nmap <leader>fi <Plug>(ale_fix)
 " diagnostic
 nmap K <Plug>(ale_hover)
 nmap <leader>E <Plug>(ale_detail)
