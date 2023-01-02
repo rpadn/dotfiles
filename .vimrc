@@ -73,42 +73,6 @@ nnoremap <leader>bn :enew<CR>
 " Make backspace work as normal again
 set bs=2
 
-" Proper PEP8 indentation
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=88 |
-    \ set colorcolumn=88 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
-
-" go
-au BufNewFile,BufRead *.go
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=80 |
-    \ set colorcolumn=80 |
-    \ set autoindent |
-    \ set fileformat=unix
-
-" Full-stack development indentation
-au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
-
-" yaml files
-au BufNewFile,BufRead *.yaml
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
-
-" jenkinsfile
-au BufNewFile,BufRead *.groovy,Jenkinsfile setf groovy
-
 " vimlocal
 au BufNewFile,BufRead *.vimlocal setf vim
 
@@ -117,15 +81,8 @@ map <Leader>tt :set ts=4 noet <bar> retab!<CR>
 " Convert whole indentation to spaces
 map <Leader>tT :set ts=4 et <bar> retab!<CR>
 
-" Flagging unnecessary whitespace
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
 " Set enconding properly
 set encoding=utf-8
-
-" Make code look pretty!
-let python_highlight_all=1
 
 " System clipboard available
 set clipboard=unnamed
@@ -235,27 +192,6 @@ set background=dark
 colorscheme PaperColor
 
 " ALE -------------------------------------------------------------------------
-let g:ale_linters = {
-\   'python': ['pylsp']
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black', 'isort']
-\}
-let g:ale_python_pylsp_config={'pylsp': {
-  \ 'configurationSources': ['flake8'],
-  \ 'plugins': {
-  \   'pycodestyle': {'enabled': v:false},
-  \   'pyflakes': {'enabled': v:false},
-  \   'pydocstyle': {'enabled': v:false},
-  \   'mccabe': {'enabled': v:false},
-  \   'flake8': {'enabled': v:true},
-  \   'pylsp_mypy': {'enabled': v:true, 'live_mode': v:false},
-  \   'pylsp_black': {'enabled': v:true},
-  \   'pyls_isort': {'enabled': v:true},
-  \ },
-  \ }}
-" let g:ale_python_pylsp_options = '--log-file /home/rpadn/dev/tmp/pylsp.log -vvv'
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_echo_msg_error_str = 'E'
@@ -318,7 +254,6 @@ nnoremap <leader>S :Ag <C-R><C-W><CR>
 " vim-repl --------------------------------------------------------------------
 nnoremap <leader>R :REPLToggle<Cr>
 let g:sendtorepl_invoke_key = "<leader>rp"
-
 
 " quick-scope -----------------------------------------------------------------
 highlight QuickScopePrimary guifg='#ffff00' gui=underline ctermfg=226 cterm=underline
