@@ -196,7 +196,7 @@ let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+let g:ale_echo_msg_format = '[%severity%] %s'
 let g:ale_floating_preview = 1
 
 " autocomplete
@@ -209,7 +209,7 @@ set omnifunc=ale#completion#OmniFunc
 nmap gd <Plug>(ale_go_to_definition_in_vsplit)
 nmap <leader>rn <Plug>(ale_rename)
 nmap <leader>rf <Plug>(ale_filerename)
-nmap <leader>fr <Plug>(ale_find_references)
+nmap <leader>fr :ALEFindReferences -relative -quickfix<CR>
 nmap <leader>fi <Plug>(ale_fix)
 " diagnostic
 nmap K <Plug>(ale_hover)
@@ -218,9 +218,17 @@ nmap <leader>p <Plug>(ale_previous_wrap)
 nmap <leader>n <Plug>(ale_next_wrap)
 
 " autocomplete with c-space (https://stackoverflow.com/a/31909227)
-inoremap <C-Space> <Plug>(ale_complete)
-imap <buffer> <Nul> <C-Space>
-smap <buffer> <Nul> <C-Space>
+" inoremap <C-Space> <Plug>(ale_complete)
+" imap <buffer> <Nul> <C-Space>
+" smap <buffer> <Nul> <C-Space>
+" imap <buffer> <C-Space> <Plug>(ale_complete)
+" Ctrl-Space for completions. Heck Yeah!
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+            \ "\<lt>C-n>" :
+            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 " vim-workspace ---------------------------------------------------------------
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
