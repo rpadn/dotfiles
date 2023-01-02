@@ -209,12 +209,12 @@ set omnifunc=ale#completion#OmniFunc
 nmap gd <Plug>(ale_go_to_definition_in_vsplit)
 nmap <leader>rn <Plug>(ale_rename)
 nmap <leader>rf <Plug>(ale_filerename)
-nmap <leader>u <Plug>(ale_find_references)
-nmap <F8> <Plug>(ale_fix)
+nmap <leader>fr <Plug>(ale_find_references)
+nmap <leader>fi <Plug>(ale_fix)
 " diagnostic
 nmap K <Plug>(ale_hover)
 nmap <leader>E <Plug>(ale_detail)
-nmap <leader>N <Plug>(ale_previous_wrap)
+nmap <leader>p <Plug>(ale_previous_wrap)
 nmap <leader>n <Plug>(ale_next_wrap)
 
 " autocomplete with c-space (https://stackoverflow.com/a/31909227)
