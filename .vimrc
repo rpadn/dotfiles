@@ -246,11 +246,6 @@ nmap <leader>E <Plug>(ale_detail)
 nmap <leader>p <Plug>(ale_previous_wrap)
 nmap <leader>n <Plug>(ale_next_wrap)
 
-" autocomplete with c-space (https://stackoverflow.com/a/31909227)
-" inoremap <C-Space> <Plug>(ale_complete)
-" imap <buffer> <Nul> <C-Space>
-" smap <buffer> <Nul> <C-Space>
-" imap <buffer> <C-Space> <Plug>(ale_complete)
 " Ctrl-Space for completions. Heck Yeah!
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\<lt>C-n>" :
