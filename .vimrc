@@ -179,9 +179,6 @@ set noswapfile
 " netrw uses rmdir by default
 let g:netrw_localrmdir='rm -rf'
 
-" Per-project settings
-silent! so .vimlocal
-
 " =============================================================================
 " Plugin settings
 " =============================================================================
@@ -329,3 +326,7 @@ highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=un
 
 " fugitive --------------------------------------------------------------------
 nnoremap <leader>gl :Git log --oneline<CR>
+
+
+" Per-project settings
+silent! so .vimlocal
