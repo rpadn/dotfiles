@@ -21,17 +21,19 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['black', 'isort']
 \}
-let g:ale_python_pylsp_config={'pylsp': {
-  \ 'configurationSources': ['flake8'],
-  \ 'plugins': {
-  \   'pycodestyle': {'enabled': v:false},
-  \   'pyflakes': {'enabled': v:false},
-  \   'pydocstyle': {'enabled': v:false},
-  \   'mccabe': {'enabled': v:false},
-  \   'flake8': {'enabled': v:true},
-  \   'pylsp_mypy': {'enabled': v:true, 'live_mode': v:false},
-  \   'pylsp_black': {'enabled': v:true},
-  \   'pyls_isort': {'enabled': v:true},
-  \ },
-  \ }}
+" this config needs to be done at project level (.vimlocal)
+" let g:ale_python_pylsp_config={'pylsp': {
+"   \ 'configurationSources': ['flake8'],
+"   \ 'plugins': {
+"   \   'pycodestyle': {'enabled': v:false},
+"   \   'pyflakes': {'enabled': v:false},
+"   \   'pydocstyle': {'enabled': v:false},
+"   \   'mccabe': {'enabled': v:false},
+"   \   'flake8': {'enabled': v:true},
+"   \   'pylsp_mypy': {'enabled': v:true, 'live_mode': v:false},
+"   \   'pylsp_black': {'enabled': v:true},
+"   \   'pyls_isort': {'enabled': v:true},
+"   \ },
+"   \ }}
 " let g:ale_python_pylsp_options = '--log-file /home/rpadn/dev/tmp/pylsp.log -vvv'
+
