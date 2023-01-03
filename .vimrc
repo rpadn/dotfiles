@@ -49,38 +49,7 @@ call plug#end()
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-" Split navigations
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
-nnoremap <C-h> <C-w><C-h>
-
-" Map leader key to comma
-nnoremap <SPACE> <Nop>
-let mapleader = " "
-
-" split vertically
-nnoremap <leader>V :vsplit<CR>
-" split horizontally
-nnoremap <leader>H :split<CR>
-
-" Removes highlight of last search
-nnoremap <Leader><space> :nohl<CR>
-
-" New empty buffer
-nnoremap <leader>bn :enew<CR>
-
-" Make backspace work as normal again
-set bs=2
-
-" vimlocal
-au BufNewFile,BufRead *.vimlocal setf vim
-
-" Convert whole indentation to tabs
-map <Leader>tt :set ts=4 noet <bar> retab!<CR>
-" Convert whole indentation to spaces
-map <Leader>tT :set ts=4 et <bar> retab!<CR>
-
+" Settings
 " Set enconding properly
 set encoding=utf-8
 
@@ -90,28 +59,6 @@ set clipboard=unnamed
 " List all characters
 set listchars=tab:»\ ,eol:¬,trail:⋅,extends:❯,precedes:❮,space:␣
 set showbreak=↪
-
-" faster esc
-inoremap jj <esc>
-
-" Quick commands
-noremap <leader>w :w<CR>
-nnoremap <leader>c :bd<CR> " Unload current buffer
-nnoremap <leader>C :bd!<CR> " Force unload current buffer
-
-" Close all buffers but current
-map <leader>o :%bd\|e#<cr>
-
-" Quickly open a buffer for scribble
-map <leader>e :vnew<cr>
-
-" Easier moving between tabs
-map <Leader>, <Esc>:bprev<CR>
-map <Leader>. <Esc>:bnext<CR>
-
-" Easier moving of code blocks
-vnoremap < <gv " Better indentation
-vnoremap > >gv " Better indentation
 
 set number " Show line numbers
 set tw=79  " Width of document (used by gd)
@@ -132,13 +79,66 @@ set smartcase
 set nobackup
 set nowritebackup
 set noswapfile
+" Make backspace work as normal again
+set bs=2
 
-" netrw uses rmdir by default
-let g:netrw_localrmdir='rm -rf'
+" Mappings
+" Map leader key to comma
+nmap <SPACE> <Nop>
+let mapleader = " "
+
+" Split navigations
+nmap <C-j> <C-w><C-j>
+nmap <C-k> <C-w><C-k>
+nmap <C-l> <C-w><C-l>
+nmap <C-h> <C-w><C-h>
+
+" split vertically
+nmap <leader>V :vsplit<CR>
+" split horizontally
+nmap <leader>H :split<CR>
+
+" Removes highlight of last search
+nmap <Leader><space> :nohl<CR>
+
+" New empty buffer
+nmap <leader>bn :enew<CR>
+" Convert whole indentation to tabs
+map <Leader>tt :set ts=4 noet <bar> retab!<CR>
+" Convert whole indentation to spaces
+map <Leader>tT :set ts=4 et <bar> retab!<CR>
+" faster esc
+imap jj <esc>
+
+" Quick commands
+noremap <leader>w :w<CR>
+nmap <leader>c :bd<CR> " Unload current buffer
+nmap <leader>C :bd!<CR> " Force unload current buffer
+
+" Close all buffers but current
+map <leader>o :%bd\|e#<cr>
+
+" Quickly open a buffer for scribble
+map <leader>e :vnew<cr>
+
+" Easier moving between tabs
+map <Leader>, <Esc>:bprev<CR>
+map <Leader>. <Esc>:bnext<CR>
+
+" Easier moving of code blocks
+vmap < <gv " Better indentation
+vmap > >gv " Better indentation
+
+
+" .vimlocal support
+au BufNewFile,BufRead *.vimlocal setf vim
 
 " =============================================================================
 " Plugin settings
 " =============================================================================
+" Papercolor-theme ------------------------------------------------------------
+set background=dark
+colorscheme PaperColor
 
 " lightline -------------------------------------------------------------------
 set laststatus=2
@@ -186,10 +186,6 @@ let g:lightline#ale#indicator_infos = "\uf129 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c"
-
-" Papercolor-theme ------------------------------------------------------------
-set background=dark
-colorscheme PaperColor
 
 " ALE -------------------------------------------------------------------------
 let g:ale_lint_on_text_changed = 1
@@ -249,7 +245,7 @@ nmap <leader>p <Plug>(ale_previous_wrap)
 nmap <leader>n <Plug>(ale_next_wrap)
 
 " Ctrl-Space for completions. Heck Yeah!
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+imap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
             \ "\<lt>C-n>" :
             \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
             \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
@@ -274,19 +270,19 @@ nmap <leader>tv :TestVisit<CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fl :BLines<CR>
-nnoremap <leader>ft :BTags<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>ta :Tags<CR>
-nnoremap <leader>hh :History<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fl :BLines<CR>
+nmap <leader>ft :BTags<CR>
+nmap <leader>bb :Buffers<CR>
+nmap <leader>ta :Tags<CR>
+nmap <leader>hh :History<CR>
 " Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-nnoremap <leader>s :Ag <CR>
-nnoremap <leader>S :Ag <C-R><C-W><CR>
+nmap <leader>s :Ag <CR>
+nmap <leader>S :Ag <C-R><C-W><CR>
 
 " vim-repl --------------------------------------------------------------------
-nnoremap <leader>R :REPLToggle<Cr>
+nmap <leader>R :REPLToggle<Cr>
 let g:sendtorepl_invoke_key = "<leader>rp"
 
 " quick-scope -----------------------------------------------------------------
@@ -294,7 +290,7 @@ highlight QuickScopePrimary guifg='#ffff00' gui=underline ctermfg=226 cterm=unde
 highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=underline
 
 " fugitive --------------------------------------------------------------------
-nnoremap <leader>gl :Git log --oneline<CR>
+nmap <leader>gl :Git log --oneline<CR>
 
 
 " Per-project settings
