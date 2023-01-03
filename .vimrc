@@ -239,6 +239,7 @@ nmap gd <Plug>(ale_go_to_definition_in_vsplit)
 nmap <leader>rn <Plug>(ale_rename)
 nmap <leader>rf <Plug>(ale_filerename)
 nmap <leader>ra :ALECodeAction<CR>
+vmap <leader>ra :ALECodeAction<CR>
 nmap <leader>fr :ALEFindReferences -relative -quickfix<CR>
 " diagnostic
 nmap K <Plug>(ale_hover)
