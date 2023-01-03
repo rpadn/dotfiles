@@ -235,7 +235,8 @@ set completeopt=menu,menuone,popup,noselect,noinsert
 set omnifunc=ale#completion#OmniFunc
 
 " mappings
-nmap gd <Plug>(ale_go_to_definition_in_vsplit)
+nmap gd <Plug>(ale_go_to_definition)
+nmap gD <Plug>(ale_go_to_definition_in_vsplit)
 nmap <leader>rn <Plug>(ale_rename)
 nmap <leader>rf <Plug>(ale_filerename)
 nmap <leader>ra :ALECodeAction<CR>
