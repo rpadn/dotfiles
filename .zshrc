@@ -5,17 +5,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/rpadn/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="spaceship-prompt/spaceship"
-#export SPACESHIP_BATTERY_SHOW=false
-#ZSH_THEME="dracula"
-
+export ZSH="/usr/share/oh-my-zsh"
 
 fpath+=$HOME/.zsh/pure
 # Pure theme
@@ -23,12 +13,6 @@ PURE_PROMPT_SYMBOL='»'
 autoload -U promptinit; promptinit
 prompt pure
 
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -81,19 +65,21 @@ plugins=(
   history
   tmux
   fzf
-  zsh-autosuggestions
-  zsh-syntax-highlighting
   docker
   kubectl
   bazel
-  zsh-vi-mode
-  pdm
 )
 
 # Fix slow paste (see https://apple.stackexchange.com/a/384160)
 DISABLE_MAGIC_FUNCTIONS=true
 
 source $ZSH/oh-my-zsh.sh
+
+# "plugins" managed by pacman / yay
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+
 
 # User configuration
 #
