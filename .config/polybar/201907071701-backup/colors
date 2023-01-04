@@ -1,8 +1,0 @@
-# Set colors from Solarized color scheme.
-background     = #002B36
-background-alt = #073642
-foreground     = #93A1A1
-primary        = #268BD2
-secondary      = #859900
-urgent         = #DC322F
-
