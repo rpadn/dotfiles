@@ -305,7 +305,12 @@ highlight QuickScopePrimary guifg='#ffff00' gui=underline ctermfg=226 cterm=unde
 highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=underline
 
 " fugitive --------------------------------------------------------------------
+nmap <leader>gs :Git<CR>
+nmap <leader>gg :Git<Space>
 nmap <leader>gl :Git log --oneline<CR>
+nmap <leader>gb :Git blame<CR>
+nmap <leader>gl :Git pull<CR>
+nmap <leader>gp :Git push<CR>
 
 
 " Per-project settings
