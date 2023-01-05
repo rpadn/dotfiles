@@ -257,6 +257,9 @@ let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_undodir = '.undodir'
 let g:workspace_create_new_tabs = 0
 
+" vim-dispatch ----------------------------------------------------------------
+nmap <leader>di :Dispatch<Space>
+
 " vim-test --------------------------------------------------------------------
 let test#strategy = 'dispatch'
 let test#python#runner = 'pytest'
