@@ -269,17 +269,29 @@ nmap <leader>tv :TestVisit<CR>
 " fzf.vim ---------------------------------------------------------------------
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+" Find files
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
 nmap <leader>ff :Files<CR>
-nmap <leader>fl :BLines<CR>
-nmap <leader>ft :BTags<CR>
-nmap <leader>bb :Buffers<CR>
-nmap <leader>ta :Tags<CR>
-nmap <leader>hh :History<CR>
+" Find opened buffers
+nmap <leader>fb :Buffers<CR>
+" Files history
+nmap <leader>fh :History<CR>
+
 " Search content and not filename (https://github.com/junegunn/fzf.vim/issues/346)
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-nmap <leader>s :Ag <CR>
+nmap <leader>ss :Ag <CR>
+" Search selected under cursor
 nmap <leader>S :Ag <C-R><C-W><CR>
+" Search in current buffer
+nmap <leader>sl :BLines<CR>
+" Search opened windows
+nmap <leader>sw :Windows<CR>
+" Search tags in current buffer
+nmap <leader>st :BTags<CR>
+" Search history
+nmap <leader>sh :History/<CR>
+" Search commits
+nmap <leader>sc :Commits<CR>
 
 " vim-repl --------------------------------------------------------------------
 nmap <leader>R :REPLToggle<Cr>
