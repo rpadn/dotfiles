@@ -1,0 +1,49 @@
+let g:ale_python_pylsp_config={'pylsp': {
+  \ 'configurationSources': ['flake8'],
+  \ 'plugins': {
+  \   'pycodestyle': {'enabled': v:false},
+  \   'pyflakes': {'enabled': v:false},
+  \   'pydocstyle': {'enabled': v:false},
+  \   'mccabe': {'enabled': v:false},
+  \   'jedi': {
+  \     'environment': '.venv',
+  \   },
+  \   'jedi_completion': {
+  \     'enabled': v:true,
+  \     'eager': v:true,
+  \     'fuzzy': v:false,
+  \     'include_class_objects': v:false,
+  \     'include_function_objects': v:false,
+  \   },
+  \   'flake8': {
+  \     'enabled': v:true,
+  \     'extendIgnore': [
+  \       'E203',
+  \     ],
+  \     'perFileIgnores': [
+  \       '__init__.py:F401',
+  \     ],
+  \     'maxLineLength': 88,
+  \   },
+  \   'pylsp_mypy': {
+  \      'enabled': v:true,
+  \      'live_mode': v:true,
+  \      'overrides': [
+  \        v:true,
+  \        '--namespace-packages',
+  \        '--explicit-package-bases',
+  \        '--python-executable',
+  \        '.venv/bin/python',
+  \      ],
+  \    },
+  \   'pylsp_black': {'enabled': v:true},
+  \   'pyls_isort': {'enabled': v:true},
+  \   'rope_autoimport': {'enabled': v:true},
+  \ },
+  \ }}
+
+" vim-test can run tests with pytest
+let test#python#pytest#options = '--asyncio-mode=auto'
+
+" vim-repl
+let g:repl_python_pre_launch_command = 'source .venv/bin/activate'
