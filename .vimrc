@@ -112,10 +112,10 @@ map <Leader>, <Esc>:bprev<CR>
 map <Leader>. <Esc>:bnext<CR>
 
 " quick save
-noremap <leader>w :w<CR>
+nmap <leader>w :w<CR>
 
 " yank buffer path to sys clipboard
-let @ += expand("%")
+nmap <leader>yp :let @+=expand("%")<CR>
 
 " Misc ------------------------------------------------------------------------
 " removes highlight of last search
