@@ -87,47 +87,48 @@ set bs=2
 nmap <SPACE> <Nop>
 let mapleader = " "
 
-" Split navigations
+" Splits ----------------------------------------------------------------------
+" navigation
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
-
 " split vertically
 nmap <leader>V :vsplit<CR>
 " split horizontally
 nmap <leader>H :split<CR>
 
-" Removes highlight of last search
-nmap <Leader><space> :nohl<CR>
-
-" New empty buffer
+" Buffers ---------------------------------------------------------------------
+" new empty buffer
 nmap <leader>bn :enew<CR>
-" Convert whole indentation to tabs
-map <Leader>tt :set ts=4 noet <bar> retab!<CR>
-" Convert whole indentation to spaces
-map <Leader>tT :set ts=4 et <bar> retab!<CR>
-" faster esc
-imap jj <esc>
-
-" Quick commands
-noremap <leader>w :w<CR>
-nmap <leader>c :bd<CR> " Unload current buffer
-nmap <leader>C :bd!<CR> " Force unload current buffer
-
-" Close all buffers but current
+" unload current buffer
+nmap <leader>c :bd<CR>
+" force unload current buffer
+nmap <leader>C :bd!<CR>
+" close all buffers but current
 map <leader>o :%bd\|e#<cr>
-
-" Quickly open a buffer for scribble
-map <leader>e :vnew<cr>
-
-" Easier moving between tabs
+" easier moving between buffers
 map <Leader>, <Esc>:bprev<CR>
 map <Leader>. <Esc>:bnext<CR>
 
-" Easier moving of code blocks
-vmap < <gv " Better indentation
-vmap > >gv " Better indentation
+" quick save
+noremap <leader>w :w<CR>
+
+" yank buffer path to sys clipboard
+let @ += expand("%")
+
+" Misc ------------------------------------------------------------------------
+" removes highlight of last search
+nmap <leader><space> :nohl<CR>
+" convert whole indentation to tabs
+map <leader>tt :set ts=4 noet <bar> retab!<CR>
+" convert whole indentation to spaces
+map <leader>tT :set ts=4 et <bar> retab!<CR>
+" faster esc
+imap jj <esc>
+" easier moving of code blocks
+vmap < <gv
+vmap > >gv
 
 
 " .vimlocal support
