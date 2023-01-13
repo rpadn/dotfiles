@@ -28,7 +28,6 @@ Plug 'NLKNguyen/papercolor-theme'
 " Dev -------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-" Plug 'ludovicchabant/vim-gutentags'
 " Testing ---------------------------------------------------------------------
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
