@@ -278,6 +278,8 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
 nmap <leader>ff :Files<CR>
 " Find opened buffers
 nmap <leader>fb :Buffers<CR>
+" Find opened windows
+nmap <leader>fw :Windows<CR>
 " Files history
 nmap <leader>fh :History<CR>
 
@@ -288,8 +290,6 @@ nmap <leader>ss :Ag <CR>
 nmap <leader>S :Ag <C-R><C-W><CR>
 " Search in current buffer
 nmap <leader>sl :BLines<CR>
-" Search opened windows
-nmap <leader>sw :Windows<CR>
 " Search tags in current buffer
 nmap <leader>st :BTags<CR>
 " Search history
