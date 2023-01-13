@@ -67,6 +67,7 @@ set cursorline " Highlight current line
 set mouse=a
 set nowrap " Don't automatically wrap on load
 set fo-=t  " Don't automatically wrap text when typing
+set scrolloff=20 " Keep cursor more 'centered' when scrolling
 
 " Make search case insensitive
 set hlsearch
