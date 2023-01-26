@@ -159,12 +159,12 @@ bindsym $mod+Escape exec powermenu
 
 
 # polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh --docky
 
 new_window normal
-for_window [class="^.*"] border pixel 3
-gaps inner 10px
-gaps outer 10px
+for_window [class="^.*"] border pixel 5
+gaps inner 5px
+gaps outer 5px
 
 
 # Multi-monitor setup
@@ -184,5 +184,5 @@ exec parcellite &
 exec blueman-applet &
 
 # Monitor setup & background
-exec --no-startup-id ~/.screenlayout/home-dual-2k-60hz.sh &
+exec --no-startup-id ~/.screenlayout/home-dual-4k-60hz.sh &
 exec --no-startup-id ~/.fehbg &
