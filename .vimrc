@@ -310,7 +310,7 @@ nmap <leader>gg :Git<Space>
 nmap <leader>gs :Git<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gp :Git push<CR>
-nmap <leader>gl :Git log --oneline<CR>
+nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
 
 
 " Per-project settings
