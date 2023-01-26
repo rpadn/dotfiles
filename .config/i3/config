@@ -155,7 +155,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bindsym $mod+shift+x exec betterlockscreen -l dim
-bindsym $mod+Escape exec powermenu
 
 
 # polybar
@@ -180,8 +179,8 @@ assign [class="firefox"] 2
 bindsym $mod+w exec firefox
 
 # Auto started apps
-exec parcellite &
-exec blueman-applet &
+exec --no-startup-id parcellite &
+exec --no-startup-id blueman-applet &
 
 # Monitor setup & background
 exec --no-startup-id ~/.screenlayout/home-dual-4k-60hz.sh &
