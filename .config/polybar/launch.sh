@@ -17,11 +17,11 @@ launch_bar() {
 	elif [[ "$style" == "pwidgets" ]]; then
 		bash "$dir"/pwidgets/launch.sh --main
 	else
-		# polybar -q main -c "$dir/$style/config.ini" &	
+		polybar -q main -c "$dir/$style/config.ini" &	
 		# Multi-monitor setup (https://github.com/polybar/polybar/issues/763)
-		for m in $(polybar --list-monitors | cut -d":" -f1); do
-			MONITOR=$m polybar -q main -c "$dir/$style/config.ini" &
-		done
+		# for m in $(polybar --list-monitors | cut -d":" -f1); do
+		# 	MONITOR=$m polybar -q main -c "$dir/$style/config.ini" &
+		# done
 
 	fi
 }
