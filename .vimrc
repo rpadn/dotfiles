@@ -14,33 +14,38 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
-Plug 'thaerkh/vim-workspace'
-Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-obsession'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'unblevable/quick-scope'
 Plug 'milkypostman/vim-togglelist'
+Plug 'Asheq/close-buffers.vim'
 " Look and feel ---------------------------------------------------------------
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'maximbaz/lightline-ale'
+Plug 'mengelbrecht/lightline-bufferline'  " what is this?
+Plug 'josa42/vim-lightline-coc'
 Plug 'sickill/vim-monokai'
 Plug 'NLKNguyen/papercolor-theme'
 " Dev -------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dadbod'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" LSP -------------------------------------------------------------------------
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Testing ---------------------------------------------------------------------
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
 " REST ------------------------------------------------------------------------
 Plug 'diepm/vim-rest-console'
-
-" LSP -------------------------------------------------------------------------
-Plug 'dense-analysis/ale'
 " python ----------------------------------------------------------------------
+Plug 'yaegassy/coc-pylsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-scripts/indentpython.vim'
 Plug 'sillybun/vim-repl'
 " go --------------------------------------------------------------------------
 Plug 'fatih/vim-go'
+" haskell ---------------------------------------------------------------------
+"
 
 call plug#end()
 
@@ -66,7 +71,7 @@ highlight ColorColumn ctermbg=2
 set cursorline " Highlight current line
 set mouse=a
 set nowrap " Don't automatically wrap on load
-set fo-=t  " Don't automatically wrap text when typing
+set formatoptions-=t " Don't automatically wrap text when typing
 set scrolloff=20 " Keep cursor more 'centered' when scrolling
 
 " Make search case insensitive
@@ -99,14 +104,20 @@ nmap <leader>V :vsplit<CR>
 nmap <leader>H :split<CR>
 
 " Buffers ---------------------------------------------------------------------
-" new empty buffer
-nmap <leader>bn :enew<CR>
+" new empty buffer in a vsplit
+nmap <leader>bn :vnew<CR>
 " unload current buffer
 nmap <leader>c :bd<CR>
 " force unload current buffer
 nmap <leader>C :bd!<CR>
 " close all buffers but current
-map <leader>o :%bd\|e#<cr>
+map <leader>bo :Bdelete other<CR>
+" close all hidden buffers
+map <leader>bh :Bdelete hidden<CR>
+" close all buffers
+map <leader>ba :Bdelete all<CR>
+" close buffers selectively
+map <leader>bs :Bdelete select<CR>
 " easier moving between buffers
 map <Leader>, <Esc>:bprev<CR>
 map <Leader>. <Esc>:bnext<CR>
@@ -114,8 +125,10 @@ map <Leader>. <Esc>:bnext<CR>
 " quick save
 nmap <leader>w :w<CR>
 
-" yank buffer path to sys clipboard
-nmap <leader>yp :let @+=expand("%")<CR>
+" yank buffer relative to sys clipboard
+nmap <leader>yr :let @+=expand("%")<CR>
+" yank buffer absolute path to sys clipboard
+nmap <leader>yp :let @+=expand("%:p")<CR>
 
 " Misc ------------------------------------------------------------------------
 " removes highlight of last search
@@ -130,6 +143,21 @@ imap jj <esc>
 vmap < <gv
 vmap > >gv
 
+" diff files in current windows
+nmap <leader>df :windo diffthis<CR>
+nmap <leader>dc :diffoff!<CR>
+" receive / send visual selection
+vmap <leader>dg :diffget<CR>
+vmap <leader>dp :diffput<CR>
+
+" try to open markdown in browser
+" autocmd BufEnter *.md exe 'nmap <leader>xb :!xdg-open file://%:p<CR>'
+
+
+" zsh-like completion
+set wildmenu
+set wildmode=full
+set wildoptions=pum
 
 " .vimlocal support
 au BufNewFile,BufRead *.vimlocal setf vim
@@ -147,12 +175,17 @@ set showtabline=2
 let g:lightline = {
     \ 'colorscheme': 'one',
     \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-    \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+    \   'left': [
+    \             [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+    \             [ 'linter_errors', 'linter_warnings', 'linter_info', 'linter_ok'],
+    \           ],
+    \   'right': [
+    \              ['filetype'],
+    \              [ 'fileformat', 'fileencoding'],
     \              [ 'lineinfo' ],
     \              [ 'percent' ],
-    \              [ 'fileformat', 'fileencoding', 'filetype'] ]
+    \            ]
     \ },
     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
     \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
@@ -161,108 +194,68 @@ let g:lightline = {
     \   'right': [ [ 'close' ] ]
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'FugitiveHead'
+    \   'gitbranch': 'FugitiveHead',
     \ },
     \ 'component_expand': {
     \   'buffers': 'lightline#bufferline#buffers',
-    \   'linter_checking': 'lightline#ale#checking',
-    \   'linter_infos': 'lightline#ale#infos',
-    \   'linter_warnings': 'lightline#ale#warnings',
-    \   'linter_errors': 'lightline#ale#errors',
-    \   'linter_ok': 'lightline#ale#ok'
+    \   'linter_warnings': 'lightline#coc#warnings',
+    \   'linter_errors': 'lightline#coc#errors',
+    \   'linter_info': 'lightline#coc#info',
+    \   'linter_ok': 'lightline#coc#ok',
     \ },
     \ 'component_type': {
     \   'buffers': 'tabsel',
-    \   'linter_checking': 'right',
-    \   'linter_infos': 'right',
-    \   'linter_warnings': 'warning',
     \   'linter_errors': 'error',
-    \   'linter_ok': 'right',
+    \   'linter_warnings': 'warning',
+    \   'linter_info': 'info',
+    \   'linter_ok': 'left',
     \ },
     \ }
 
-let g:lightline#ale#indicator_checking = "\uf110"
-" space after the icone as the font icon overlaps with the number
-let g:lightline#ale#indicator_infos = "\uf129 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c"
+let g:lightline#coc#indicator_errors = 'E '
+let g:lightline#coc#indicator_warnings = 'W '
+let g:lightline#coc#indicator_info = 'I '
 
-" ALE -------------------------------------------------------------------------
-let g:ale_lint_on_text_changed = 1
-let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%] %s'
-let g:ale_floating_preview = 1
-let g:ale_completion_symbols = {
-\  'text': 'text',
-\  'method': 'method',
-\  'function': 'function',
-\  'constructor': 'constructor',
-\  'field': 'field',
-\  'variable': 'variable',
-\  'class': 'class',
-\  'interface': 'interface',
-\  'module': 'module',
-\  'property': 'property',
-\  'unit': 'unit',
-\  'value': 'value',
-\  'enum': 'enum',
-\  'keyword': 'keyword',
-\  'snippet': 'snippet',
-\  'color': 'color',
-\  'file': 'file',
-\  'reference': 'reference',
-\  'folder': 'folder',
-\  'enum_member': 'enum member',
-\  'constant': 'constant',
-\  'struct': 'struct',
-\  'event': 'event',
-\  'operator': 'operator',
-\  'type_parameter': 'type param',
-\  '<default>': 'default'
-\}
+" COC -------------------------------------------------------------------------
+set updatetime=300
+set signcolumn=yes
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" autocomplete
-let g:ale_completion_enabled = 1
-" enable popup over split window for inline docs
-set completeopt=menu,menuone,popup,noselect,noinsert
-set omnifunc=ale#completion#OmniFunc
+" Use <c-space> to trigger completion
+inoremap <silent><expr> <c-@> coc#refresh()
 
-" mappings
-nmap gd <Plug>(ale_go_to_definition)
-nmap gD <Plug>(ale_go_to_definition_in_vsplit)
-nmap <leader>rn <Plug>(ale_rename)
-nmap <leader>rf <Plug>(ale_filerename)
-nmap <leader>ra :ALECodeAction<CR>
-vmap <leader>ra :ALECodeAction<CR>
-nmap <leader>fr :ALEFindReferences -relative -quickfix<CR>
 " diagnostic
-nmap K <Plug>(ale_hover)
-nmap <leader>E <Plug>(ale_detail)
-nmap <leader>p <Plug>(ale_previous_wrap)
-nmap <leader>n <Plug>(ale_next_wrap)
+nmap <silent> [n <Plug>(coc-diagnostic-prev)
+nmap <silent> ]n <Plug>(coc-diagnostic-next)
+" fills the location list the first time is executed
+nmap <leader>da  :CocDiagnostics<CR>
+" show docs (hover)
+nmap K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
-" Ctrl-Space for completions. Heck Yeah!
-imap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-            \ "\<lt>C-n>" :
-            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
-
-" vim-workspace ---------------------------------------------------------------
-let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-let g:workspace_undodir = '.undodir'
-let g:workspace_create_new_tabs = 0
+" GoTo code naviation
+nmap gd <Plug>(coc-definition)
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ra <Plug>(coc-codeaction-selected)
+vmap <leader>ra <Plug>(coc-codeaction-selected)
+nmap <leader>re <Plug>(coc-codeaction-refactor)
+vmap <leader>re <Plug>(coc-codeaction-refactor-selected)
+nmap <leader>fr <Plug>(coc-references)
 
 " vim-dispatch ----------------------------------------------------------------
 nmap <leader>di :Dispatch<Space>
 
 " vim-test --------------------------------------------------------------------
-let test#strategy = 'dispatch'
+let test#strategy = 'vimterminal'
 let test#python#runner = 'pytest'
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
@@ -300,6 +293,10 @@ nmap <leader>sc :Commits<CR>
 " vim-repl --------------------------------------------------------------------
 nmap <leader>R :REPLToggle<Cr>
 let g:sendtorepl_invoke_key = "<leader>rp"
+let g:repl_program = {
+    \ 'python': 'python -m asyncio',
+    \ 'default': 'zsh',
+    \ }
 
 " quick-scope -----------------------------------------------------------------
 highlight QuickScopePrimary guifg='#ffff00' gui=underline ctermfg=226 cterm=underline
@@ -311,6 +308,9 @@ nmap <leader>gs :Git<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gp :Git push<CR>
 nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
+
+" vim-flog --------------------------------------------------------------------
+nmap <leader>gf :Flogsplit<CR>
 
 
 " Per-project settings

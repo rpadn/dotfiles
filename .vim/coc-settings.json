@@ -1,0 +1,20 @@
+{
+    "coc.preferences.formatOnSave": true,
+    "diagnostic.errorSign": "E",
+    "diagnostic.warningSign": "W",
+    "diagnostic.infoSign": "I",
+    "pylsp.disableProgressNotifications": false,
+    "pylsp.builtin.enableInstallPylspMypy": true,
+    "pylsp.builtin.enableInstallPythonLspRuff": true,
+    "pylsp.plugins.pycodestyle.enabled": false,
+    "pylsp.plugins.pyflakes.enabled": false,
+    "pylsp.plugins.mccabe.enabled": false,
+    // "pylsp.plugins.pylsp_mypy
+    "pylsp.plugins.ruff.extendSelect": [
+        "I"
+    ],
+    "pylsp.plugins.ruff.format": [
+        "I"
+    ],
+    "pylsp.plugins.ruff.lineLength": 88,
+}
