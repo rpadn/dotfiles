@@ -178,7 +178,7 @@ let g:lightline = {
     \   'left': [
     \             [ 'mode', 'paste' ],
     \             [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-    \             [ 'linter_errors', 'linter_warnings', 'linter_info', 'linter_ok'],
+    \             [ 'linter_errors', 'linter_warnings', 'linter_info', 'linter_hints', 'linter_ok' ],
     \           ],
     \   'right': [
     \              ['filetype'],
@@ -198,9 +198,10 @@ let g:lightline = {
     \ },
     \ 'component_expand': {
     \   'buffers': 'lightline#bufferline#buffers',
-    \   'linter_warnings': 'lightline#coc#warnings',
     \   'linter_errors': 'lightline#coc#errors',
+    \   'linter_warnings': 'lightline#coc#warnings',
     \   'linter_info': 'lightline#coc#info',
+    \   'linter_hints': 'lightline#coc#hints',
     \   'linter_ok': 'lightline#coc#ok',
     \ },
     \ 'component_type': {
@@ -208,6 +209,7 @@ let g:lightline = {
     \   'linter_errors': 'error',
     \   'linter_warnings': 'warning',
     \   'linter_info': 'info',
+    \   'linter_hints': 'hint',
     \   'linter_ok': 'left',
     \ },
     \ }
@@ -215,6 +217,7 @@ let g:lightline = {
 let g:lightline#coc#indicator_errors = 'E '
 let g:lightline#coc#indicator_warnings = 'W '
 let g:lightline#coc#indicator_info = 'I '
+let g:lightline#coc#indicator_hints = 'H '
 
 " COC -------------------------------------------------------------------------
 set updatetime=300
