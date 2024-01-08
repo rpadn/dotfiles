@@ -234,7 +234,7 @@ inoremap <silent><expr> <c-@> coc#refresh()
 nmap <silent> [n <Plug>(coc-diagnostic-prev)
 nmap <silent> ]n <Plug>(coc-diagnostic-next)
 " fills the location list the first time is executed
-nmap <leader>da  :CocDiagnostics<CR>
+nmap <leader>da :CocDiagnostics<CR>
 " show docs (hover)
 nmap K :call ShowDocumentation()<CR>
 function! ShowDocumentation()
@@ -247,12 +247,21 @@ endfunction
 
 " GoTo code naviation
 nmap gd <Plug>(coc-definition)
+nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ra <Plug>(coc-codeaction-selected)
 vmap <leader>ra <Plug>(coc-codeaction-selected)
 nmap <leader>re <Plug>(coc-codeaction-refactor)
 vmap <leader>re <Plug>(coc-codeaction-refactor-selected)
 nmap <leader>fr <Plug>(coc-references)
+
+" Remap <C-f> and <C-b> to scroll float windows/popups
+nmap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nmap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vmap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vmap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " vim-dispatch ----------------------------------------------------------------
 nmap <leader>di :Dispatch<Space>
