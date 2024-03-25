@@ -287,8 +287,9 @@ nmap <leader>tv :TestVisit<CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Find files
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore="*.git/" -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore=.git -g ""'
 nmap <leader>ff :Files<CR>
+nmap <leader>fg :GFiles<CR>
 " Find opened buffers
 nmap <leader>fb :Buffers<CR>
 " Find opened windows
