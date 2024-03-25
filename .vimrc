@@ -99,10 +99,10 @@ nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
-" split vertically
-nmap <leader>V :vsplit<CR>
-" split horizontally
-nmap <leader>H :split<CR>
+" open netrw in vertical split
+nmap <leader>V :Vex<CR>
+" open netrw in horizontal split
+nmap <leader>H :Sex<CR>
 
 " Buffers ---------------------------------------------------------------------
 " new empty buffer in a vsplit
