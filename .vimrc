@@ -246,14 +246,21 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" GoTo code naviation
+" GoTo code navigation
 nmap gd <Plug>(coc-definition)
-nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent>gD :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ra <Plug>(coc-codeaction-selected)
-vmap <leader>ra <Plug>(coc-codeaction-selected)
+" code actions
+vmap <leader>as <Plug>(coc-codeaction-selected)
+nmap <leader>as  <Plug>(coc-codeaction-source)
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" refactor
 nmap <leader>re <Plug>(coc-codeaction-refactor)
 vmap <leader>re <Plug>(coc-codeaction-refactor-selected)
+
+nmap <leader>qf <Plug>(coc-fix-current)
+
+" find usages
 nmap <leader>fr <Plug>(coc-references)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
