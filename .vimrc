@@ -340,5 +340,13 @@ if has('persistent_undo')
 endif
 nmap <leader>u :UndotreeToggle<CR>
 
+" vim-bookmarks ---------------------------------------------------------------
+let g:bookmark_no_default_key_mappings = 1
+nmap <leader>mm <Plug>BookmarkToggle
+nmap <leader>mi <Plug>BookmarkAnnotate
+nmap <leader>ma <Plug>BookmarkShowAll
+nmap <Leader>mc <Plug>BookmarkClear
+nmap <Leader>mx <Plug>BookmarkClearAll
+
 " Per-project settings
 silent! so .vimlocal
