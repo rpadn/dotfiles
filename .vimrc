@@ -19,6 +19,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'unblevable/quick-scope'
 Plug 'milkypostman/vim-togglelist'
 Plug 'Asheq/close-buffers.vim'
+Plug 'mbbill/undotree'
 " Look and feel ---------------------------------------------------------------
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'  " what is this?
@@ -324,6 +325,12 @@ nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
 " vim-flog --------------------------------------------------------------------
 nmap <leader>gf :Flogsplit<CR>
 
+" undotree --------------------------------------------------------------------
+if has('persistent_undo')
+  set undofile
+  set undodir=$HOME/.vim/undodir/
+endif
+nmap <leader>u :UndotreeToggle<CR>
 
 " Per-project settings
 silent! so .vimlocal
