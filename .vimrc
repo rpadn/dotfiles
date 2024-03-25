@@ -348,5 +348,10 @@ nmap <leader>ma <Plug>BookmarkShowAll
 nmap <Leader>mc <Plug>BookmarkClear
 nmap <Leader>mx <Plug>BookmarkClearAll
 
+" vim-togglelist --------------------------------------------------------------
+let g:toggle_list_no_mappings = 1
+nmap <leader>ll :call ToggleLocationList()<CR>
+nmap <leader>ql :call ToggleQuickfixList()<CR>
+
 " Per-project settings
 silent! so .vimlocal
