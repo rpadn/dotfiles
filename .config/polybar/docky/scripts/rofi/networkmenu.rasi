@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"Iosevka Nerd Font 10";
+	font:							"FiraCodeNerdFont 13";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -28,7 +28,7 @@ window {
 	border:							0px 0px 2px 0px;
 	border-color:					@ac;
     border-radius:                  0px;
-	width:							400px;
+	width:							850px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -46,7 +46,7 @@ textbox-prompt-colon {
 	text-color: 					@bar;
 	expand: false;
 	str: "";
-	font:							"feather 12";
+	font:							"FiraCodeNerdFont 13";
 }
 
 entry {
@@ -76,7 +76,7 @@ listview {
     background-color:               @al;
     padding:                        0px;
     columns:                        1;
-    lines:                          8;
+    lines:                          12;
     spacing:                        5px;
     cycle:                          true;
     dynamic:                        true;
