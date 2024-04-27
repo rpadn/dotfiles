@@ -174,15 +174,30 @@ au BufNewFile,BufRead *.vimlocal setf vim
 " =============================================================================
 " Plugin settings
 " =============================================================================
-" Papercolor-theme ------------------------------------------------------------
+" theme -----------------------------------------------------------------------
+set termguicolors
 set background=dark
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'override' : {
+  \         'visual_fg' : ['', '232'],
+  \         'visual_bg' : ['#5e8d87', '73'],
+  \       }
+  \     }
+  \   }
+  \ }
 colorscheme PaperColor
+
 
 " lightline -------------------------------------------------------------------
 set laststatus=2
 set showtabline=2
+set t_Co=256
+set noshowmode
+source ~/.vim/colors/lightline/papercolor-dark-custom.vim
 let g:lightline = {
-    \ 'colorscheme': 'one',
+    \ 'colorscheme': 'PaperColor_custom',
     \ 'active': {
     \   'left': [
     \             [ 'mode', 'paste' ],
