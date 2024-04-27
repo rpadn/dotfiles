@@ -34,6 +34,7 @@ Plug 'tpope/vim-dadbod'
 " Plug 'honza/vim-snippets'
 " LSP -------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf'  " fzf for coc-list
 " Testing ---------------------------------------------------------------------
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
@@ -252,12 +253,13 @@ nmap <silent>gD :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <leader>rn <Plug>(coc-rename)
 " code actions
 vmap <leader>as <Plug>(coc-codeaction-selected)
-nmap <leader>as  <Plug>(coc-codeaction-source)
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap <leader>as <Plug>(coc-codeaction-source)
+nmap <leader>ac <Plug>(coc-codeaction-cursor)
 " refactor
 nmap <leader>re <Plug>(coc-codeaction-refactor)
 vmap <leader>re <Plug>(coc-codeaction-refactor-selected)
 
+nmap <leader>fm :call CocAction('format')<CR>
 nmap <leader>qf <Plug>(coc-fix-current)
 
 " find usages
@@ -270,6 +272,15 @@ imap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scr
 imap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 vmap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vmap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+" coc-fzf ---------------------------------------------------------------------
+" Search outline
+" Keep global fzf settings (e.g. preview right)
+let g:coc_fzf_preview = ''
+" Sort outline by first-line at the top of results
+let g:coc_fzf_opts = ['--layout=reverse-list']
+let g:coc_fzf_preview_toggle_key = '/'
+nmap <leader>so :CocFzfList outline<CR>
 
 " vim-dispatch ----------------------------------------------------------------
 nmap <leader>di :Dispatch<Space>
@@ -285,6 +296,12 @@ nmap <leader>tv :TestVisit<CR>
 
 " fzf.vim ---------------------------------------------------------------------
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+let $FZF_DEFAULT_OPTS = "\
+  \ --preview-window 'right:57%'
+  \ --preview 'bat --style=numbers --line-range :300 {}'
+  \ --bind ctrl-y:preview-up,ctrl-e:preview-down
+  \ --bind ctrl-b:page-up,ctrl-f:page-down
+  \ --bind ctrl-u:half-page-up,ctrl-d:half-page-down"
 
 " Find files
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore=.git -g ""'
@@ -325,7 +342,9 @@ highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=un
 
 " fugitive --------------------------------------------------------------------
 nmap <leader>gg :Git<Space>
-nmap <leader>gs :Git<CR>
+" https://github.com/tpope/vim-fugitive/discussions/2275
+" nmap <leader>gs :Git<CR>
+nmap <leader>gs :Gedit :<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gp :Git push<CR>
 nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>

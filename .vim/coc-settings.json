@@ -1,20 +1,64 @@
 {
+    // general
     "coc.preferences.formatOnSave": true,
+    "coc.preferences.formatOnSaveTimeout": 1000,
+    "coc.preferences.willSaveHandlerTimeout": 1000,
     "diagnostic.errorSign": "E",
     "diagnostic.warningSign": "W",
     "diagnostic.infoSign": "I",
+    "diagnostic.hintSign": "H",
+    "diagnostic.floatConfig": {
+        "border": true,
+        "rounded": true,
+    },
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextFormat": "[%source%code] %message",
+    "suggest.noselect": true,
+    "suggest.floatConfig": {
+        "border": false,
+    },
+    // python - pylsp
+    // debug
+    // "pylsp.trace.server": "verbose",
+    // "pylsp.connectionMode": "tcp",
     "pylsp.disableProgressNotifications": false,
     "pylsp.builtin.enableInstallPylspMypy": true,
-    "pylsp.builtin.enableInstallPythonLspRuff": true,
+    "pylsp.builtin.enableInstallPythonLspRuff": false,
+    "pylsp.builtin.enableInstallPylspRope": false,
     "pylsp.plugins.pycodestyle.enabled": false,
+    "pylsp.plugins.yapf.enabled": false,
+    "pylsp.plugins.autopep8.enabled": false,
     "pylsp.plugins.pyflakes.enabled": false,
-    "pylsp.plugins.mccabe.enabled": false,
-    // "pylsp.plugins.pylsp_mypy
-    "pylsp.plugins.ruff.extendSelect": [
-        "I"
-    ],
-    "pylsp.plugins.ruff.format": [
-        "I"
-    ],
-    "pylsp.plugins.ruff.lineLength": 88,
+    "pylsp.plugins.mccabe.enabled": true,
+    "pylsp.plugins.ruff.enabled": false,
+    // python - ruff
+    "ruff.enable": true,
+    "ruff.autoFixOnSave": true,
+    // python - pydocstring
+    "pydocstring.enable": true,
+    "pydocstring.formatter": "google",
+    // haskell - hls
+    "languageserver": {
+        "haskell": {
+            "command": "haskell-language-server-wrapper",
+            "args": [
+                "--lsp"
+            ],
+            "rootPatterns": [
+                "*.cabal",
+                "stack.yaml",
+                "cabal.project",
+                "package.yaml",
+                "hie.yaml"
+            ],
+            "filetypes": [
+                "haskell",
+                "lhaskell"
+            ],
+            "settings": {
+                "haskell.formattingProvider": "fourmolu",
+                "haskell.plugin.fourmolu.config.external": true,
+            },
+        }
+    }
 }
