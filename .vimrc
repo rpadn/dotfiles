@@ -88,6 +88,8 @@ set noswapfile
 " Make backspace work as normal again
 set bs=2
 
+set relativenumber
+
 " Mappings
 " Map leader key to comma
 nmap <SPACE> <Nop>
@@ -126,12 +128,18 @@ map <Leader>. <Esc>:bnext<CR>
 " quick save
 nmap <leader>w :w<CR>
 
+" Misc ------------------------------------------------------------------------
 " yank buffer relative to sys clipboard
 nmap <leader>yr :let @+=expand("%")<CR>
 " yank buffer absolute path to sys clipboard
 nmap <leader>yp :let @+=expand("%:p")<CR>
+" yank filename to sys clipboard
+nmap <leader>yf :let @+=expand("%:t")<CR>
 
-" Misc ------------------------------------------------------------------------
+" yank into sys clipboard
+nmap <leader>Y "+y
+vmap <leader>Y "+y
+
 " removes highlight of last search
 nmap <leader><space> :nohl<CR>
 " convert whole indentation to tabs
