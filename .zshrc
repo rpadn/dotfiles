@@ -1,8 +1,8 @@
 export TERM="xterm-256color"
 
-# If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
-export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+# haskell
+export PATH=$HOME/.ghcup/bin:$HOME/.cabal/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/usr/share/oh-my-zsh"
@@ -53,7 +53,7 @@ prompt pure
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=$HOME/.oh-my-zsh
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -68,6 +68,7 @@ plugins=(
   docker
   kubectl
   bazel
+  jq
 )
 
 # Fix slow paste (see https://apple.stackexchange.com/a/384160)
@@ -79,19 +80,27 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 
 
 # User configuration
 #
-# Fix vi-mode stealing CTRL+R to fzf 
+# Fix vi-mode stealing CTRL+R to fzf
 zvm_after_init_commands+=("bindkey '^R' fzf-history-widget")
+
+# yank from vi-mode to system clipboard
+# https://github.com/jeffreytse/zsh-vi-mode/issues/19
+zvm_vi_yank () {
+	zvm_yank
+	printf %s "${CUTBUFFER}" | xclip -sel c
+	zvm_exit_visual_mode
+}
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
-alias vi='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -110,6 +119,10 @@ alias vi='vim'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=239"
 
+# vi
+alias vi='vim'
+alias v='vim'
+
 # tmux
 alias tma='tmux attach -t'
 alias tmad='tmux attach -d -t'
@@ -125,8 +138,12 @@ alias gap='git add -p'
 alias glo='git log'
 
 # exa over ls
+unalias la
 alias ls='exa'
 alias ll='ls -lh --git'
+alias la='ls -la --git'
+
+alias cat='bat'
 
 # gtags
 export GTAGSLABEL=pygments
@@ -140,4 +157,3 @@ eval "$(pyenv init -)"
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
-
