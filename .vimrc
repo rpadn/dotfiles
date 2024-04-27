@@ -22,9 +22,8 @@ Plug 'Asheq/close-buffers.vim'
 Plug 'mbbill/undotree'
 " Look and feel ---------------------------------------------------------------
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'  " what is this?
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'josa42/vim-lightline-coc'
-Plug 'sickill/vim-monokai'
 Plug 'NLKNguyen/papercolor-theme'
 " Dev -------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
