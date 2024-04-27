@@ -2,8 +2,8 @@
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set textwidth=88
-set colorcolumn=88
+set textwidth=100
+set colorcolumn=100
 set expandtab
 set autoindent
 set fileformat=unix
