@@ -181,8 +181,18 @@ let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
   \       'override' : {
-  \         'visual_fg' : ['', '232'],
-  \         'visual_bg' : ['#5e8d87', '73'],
+  "\ better visual
+  \         'visual_fg' :    ['#080808', '232'],
+  \         'visual_bg' :    ['#5e8d87', '73'],
+  "\ better diff
+  \         'diffadd_fg':    ['#87d700', '112'],
+  \         'diffadd_bg':    ['#1c1c1c', '234'],
+  \         'diffdelete_fg': ['#af005f', '125'],
+  \         'diffdelete_bg': ['#1c1c1c', '234'],
+  \         'difftext_fg':   ['#0087ff', '33'],
+  \         'difftext_bg':   ['#1c1c1c', '234'],
+  \         'diffchange_fg': ['#d7d7ff', '189'],
+  \         'diffchange_bg': ['#1c1c1c', '234'],
   \       }
   \     }
   \   }
