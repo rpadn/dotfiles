@@ -376,7 +376,7 @@ highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=un
 nmap <leader>gg :Git<Space>
 " https://github.com/tpope/vim-fugitive/discussions/2275
 " nmap <leader>gs :Git<CR>
-nmap <leader>gs :Gedit :<CR>
+nmap <leader>gs :Gsplit :<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gp :Git push<CR>
 nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
