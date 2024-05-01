@@ -62,6 +62,7 @@
     "pylsp.plugins.pyflakes.enabled": false,
     "pylsp.plugins.mccabe.enabled": true,
     "pylsp.plugins.ruff.enabled": false,
+    "pylsp.plugins.jedi.environment": "${cwd}/.venv/",
     // python - ruff
     "ruff.enable": true,
     "ruff.autoFixOnSave": true,
