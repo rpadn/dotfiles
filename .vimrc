@@ -25,6 +25,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'josa42/vim-lightline-coc'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'ap/vim-css-color'
 " Dev -------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
