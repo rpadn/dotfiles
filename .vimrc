@@ -143,10 +143,6 @@ vmap <leader>Y "+y
 
 " removes highlight of last search
 nmap <leader><space> :nohl<CR>
-" convert whole indentation to tabs
-map <leader>tt :set ts=4 noet <bar> retab!<CR>
-" convert whole indentation to spaces
-map <leader>tT :set ts=4 et <bar> retab!<CR>
 " faster esc
 imap jj <esc>
 " easier moving of code blocks
@@ -323,7 +319,7 @@ let test#strategy = 'vimterminal'
 let test#python#runner = 'pytest'
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
-nmap <leader>tt :TestSuite<CR>
+nmap <leader>ts :TestSuite<CR>
 nmap <leader>tl :TestLast<CR>
 nmap <leader>tv :TestVisit<CR>
 
