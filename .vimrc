@@ -297,6 +297,7 @@ nmap <leader>rn <Plug>(coc-rename)
 vmap <leader>as <Plug>(coc-codeaction-selected)
 nmap <leader>as <Plug>(coc-codeaction-source)
 nmap <leader>ac <Plug>(coc-codeaction-cursor)
+nmap <leader>al <Plug>(coc-codeaction-line)
 " refactor
 nmap <leader>re <Plug>(coc-codeaction-refactor)
 vmap <leader>re <Plug>(coc-codeaction-refactor-selected)
