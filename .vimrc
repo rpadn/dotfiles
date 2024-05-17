@@ -159,6 +159,19 @@ vmap <leader>dp :diffput<CR>
 " try to open markdown in browser
 " autocmd BufEnter *.md exe 'nmap <leader>xb :!xdg-open file://%:p<CR>'
 
+" Simple todo / fixme finder
+function! FindTodo()
+  " close quickfix if opened
+  let ids = getqflist({'winid' : 1})
+  if get(ids, "winid", 0) != 0
+    cclose
+  else
+    vimgrep /TODO\|FIXME\|HACK/ **/*.*
+    copen
+  endif
+endfunction
+nmap <leader>td :call FindTodo()<CR>
+
 
 " zsh-like completion
 set wildmenu
