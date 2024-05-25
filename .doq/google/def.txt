@@ -1,0 +1,25 @@
+"""<{{ name }}>.
+
+Args:
+{%- for p in params %}
+{%- if p.argument != 'self' %}
+    {{ p.argument }}: <{{ p.argument }}>.
+{%- endif -%}
+{%- endfor %}
+{% if return_type and return_type != 'None' %}
+Returns:
+    <>.
+{% endif -%}
+{% if yields %}
+Yields:
+{%- for y in yields %}
+    <{{ y }}>:<>.
+{%- endfor %}
+{% endif -%}
+{% if exceptions %}
+Raises:
+{%- for e in exceptions %}
+    <{{ e }}>:
+{%- endfor %}
+{% endif -%}
+"""
