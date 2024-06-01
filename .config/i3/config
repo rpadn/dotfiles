@@ -79,6 +79,10 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+floating_minimum_size 2100 x 1200
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
