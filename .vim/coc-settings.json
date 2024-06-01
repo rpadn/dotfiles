@@ -102,8 +102,12 @@
                 "lhaskell"
             ],
             "settings": {
-                "haskell.formattingProvider": "fourmolu",
-                "haskell.plugin.fourmolu.config.external": true,
+                "haskell.formattingProvider": "ormolu",
+                "plugin": {
+                    "stan": {
+                        "globalOn": true
+                    }
+                }
             },
         }
     }
