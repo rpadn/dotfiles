@@ -1,0 +1,5 @@
+! Turn alt right into mod2 for second monitor mappings with i3
+keycode 108 = Alt_R
+clear mod2
+remove mod1 = Alt_R
+add mod2 = Alt_R
