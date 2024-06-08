@@ -70,7 +70,7 @@
     "pylsp.plugins.jedi.environment": "${cwd}/.venv/",
     // ruff
     "ruff.enable": true,
-    "ruff.autoFixOnSave": true,
+    "ruff.autoFixOnSave": false,
     // pydocstring
     "pydocstring.enable": true,
     "pydocstring.formatter": "google",
