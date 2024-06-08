@@ -166,7 +166,7 @@ function! FindTodo()
   if get(ids, "winid", 0) != 0
     cclose
   else
-    vimgrep /TODO\|FIXME\|HACK/ **/*.*
+    vimgrep /\CTODO\|FIXME\|HACK/ **/*.*
     copen
   endif
 endfunction
