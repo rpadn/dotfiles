@@ -58,11 +58,9 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# move focused window to next/prev workspace
+bindsym $mod+Shift+Left move to workspace prev
+bindsym $mod+Shift+Right move to workspace next
 
 # split in horizontal orientation
 #bindsym $mod+h split h
@@ -148,12 +146,11 @@ workspace 13 output HDMI-1
 workspace 14 output HDMI-1
 
 # cycle through workspaces
-bindsym $mod+period workspace next
-bindsym $mod+comma workspace prev
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
 
-# move focused window between monitors
-bindsym $mod+Shift+greater move container to output right
-bindsym $mod+Shift+less move container to output left
+# move focused window between monitors (toggle behaviour)
+bindsym $mod+x move container to output right
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -196,9 +193,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh --docky
 
 new_window normal
 for_window [class="^.*"] border pixel 2
-gaps inner 2px
-gaps outer 2px
-
+gaps inner 1px
+gaps outer 1px
 
 
 # Shortcuts
