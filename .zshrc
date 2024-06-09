@@ -77,9 +77,10 @@ DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 # "plugins" managed by pacman / yay
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 
 
@@ -87,6 +88,12 @@ source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 #
 # Fix vi-mode stealing CTRL+R to fzf
 zvm_after_init_commands+=("bindkey '^R' fzf-history-widget")
+# fish-shell history search with vi-mode
+# https://github.com/zsh-users/zsh-history-substring-search/issues/106
+zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up")
+zvm_after_init_commands+=("bindkey '^[[B' history-substring-search-down")
+zvm_after_init_commands+=("bindkey -M vicmd 'k' history-substring-search-up")
+zvm_after_init_commands+=("bindkey -M vicmd 'j' history-substring-search-down")
 
 # yank from vi-mode to system clipboard
 # https://github.com/jeffreytse/zsh-vi-mode/issues/19
