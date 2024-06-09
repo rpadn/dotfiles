@@ -155,11 +155,6 @@ alias cat='bat'
 # gtags
 export GTAGSLABEL=pygments
 
-# pyenv setup https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 # autostart X11
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
