@@ -156,6 +156,6 @@ alias cat='bat'
 export GTAGSLABEL=pygments
 
 # autostart X11
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
