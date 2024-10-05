@@ -89,6 +89,8 @@ set noswapfile
 set bs=2
 
 set relativenumber
+" Show number of occurrences when searching
+set shortmess-=S
 
 " Mappings
 " Map leader key to comma
@@ -142,8 +144,6 @@ vmap <leader>Y "+y
 
 " removes highlight of last search
 nmap <leader><space> :nohl<CR>
-" faster esc
-imap jj <esc>
 " easier moving of code blocks
 vmap < <gv
 vmap > >gv
@@ -180,6 +180,11 @@ set wildoptions=pum
 " .vimlocal support
 au BufNewFile,BufRead *.vimlocal setf vim
 
+" ignore binary files
+set wildignore=*.o,*.obj
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif,*.pdf
+
 " =============================================================================
 " Plugin settings
 " =============================================================================
@@ -208,6 +213,8 @@ let g:PaperColor_Theme_Options = {
   \ }
 colorscheme PaperColor
 
+" netrw ----------------------------------------------------------------------- 
+" let g:netrw_liststyle=3 " show tree listing by default
 
 " lightline -------------------------------------------------------------------
 set laststatus=2
@@ -346,7 +353,11 @@ let $FZF_DEFAULT_OPTS = "\
   \ --bind ctrl-u:half-page-up,ctrl-d:half-page-down"
 
 " Find files
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore=.git -g ""'
+let $FZF_DEFAULT_COMMAND = "\
+  \ag --hidden --ignore=.git 
+  \--ignore=.stack-work 
+  \--ignore=dist-newstyle 
+  \-g \"\"" 
 nmap <leader>ff :Files<CR>
 nmap <leader>fg :GFiles<CR>
 " Find opened buffers
@@ -385,8 +396,8 @@ highlight QuickScopeSecondary guifg='#ff5fff' gui=underline ctermfg=207 cterm=un
 " fugitive --------------------------------------------------------------------
 nmap <leader>gg :Git<Space>
 " https://github.com/tpope/vim-fugitive/discussions/2275
-" nmap <leader>gs :Git<CR>
-nmap <leader>gs :Gsplit :<CR>
+nmap <leader>gs :Git<CR>
+" nmap <leader>gs :Gsplit :<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gp :Git push<CR>
 nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
@@ -395,10 +406,8 @@ nmap <leader>gl :Git log --pretty=format:"%h %s <%an> (%ar)"<CR>
 nmap <leader>gf :Flogsplit<CR>
 
 " undotree --------------------------------------------------------------------
-if has('persistent_undo')
-  set undofile
-  set undodir=$HOME/.vim/undodir/
-endif
+set undofile
+set undodir=~/.vim/undodir/
 nmap <leader>u :UndotreeToggle<CR>
 
 " vim-bookmarks ---------------------------------------------------------------
