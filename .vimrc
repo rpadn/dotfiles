@@ -41,7 +41,6 @@ Plug 'tpope/vim-dispatch'
 " REST ------------------------------------------------------------------------
 Plug 'diepm/vim-rest-console'
 " python ----------------------------------------------------------------------
-Plug 'yaegassy/coc-pylsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-scripts/indentpython.vim'
 Plug 'sillybun/vim-repl'
 " go --------------------------------------------------------------------------
