@@ -10,11 +10,11 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $mod2 Mod2
+set $mod2 Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:FiraCodeNerdFont 8
+font pango:FiraCodeNerdFont 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -26,8 +26,6 @@ font pango:FiraCodeNerdFont 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -57,10 +55,10 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
-# move focused window to next/prev workspace
-bindsym $mod+Shift+Left move to workspace prev
-bindsym $mod+Shift+Right move to workspace next
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 #bindsym $mod+h split h
@@ -78,17 +76,15 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-floating_minimum_size 2100 x 1200
 
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus focus output HDMI-1, scratchpad show, [instance="__scratchpad"]
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -144,13 +140,28 @@ workspace 11 output HDMI-1
 workspace 12 output HDMI-1
 workspace 13 output HDMI-1
 workspace 14 output HDMI-1
+workspace 15 output HDMI-1
+workspace 16 output HDMI-1
+workspace 17 output HDMI-1
+workspace 18 output HDMI-1
+workspace 19 output HDMI-1
+workspace 20 output HDMI-1
 
 # cycle through workspaces
 bindsym $mod+period workspace next_on_output
 bindsym $mod+comma workspace prev_on_output
 
+bindsym $mod+F1 focus output DP-1
+bindsym $mod+F2 focus output HDMI-1
 # move focused window between monitors (toggle behaviour)
 bindsym $mod+x move container to output right
+
+# https://github.com/i3/i3/discussions/5536
+# switch to next available workspace
+bindsym $mod+o exec --no-startup-id i3-msg workspace number $($HOME/bin/i3-next-available-workspace.py)
+
+# move window to next available workspace
+bindsym $mod+Shift+o exec --no-startup-id i3-msg move window to workspace $($HOME/bin/i3-next-available-workspace.py) && i3-msg workspace number $_
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -167,16 +178,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 20 px 
+        bindsym j resize grow height 20 px 
+        bindsym k resize shrink height 20 px 
+        bindsym l resize grow width 20 px 
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 20 px 
+        bindsym Down resize grow height 20 px 
+        bindsym Up resize shrink height 20 px 
+        bindsym Right resize grow width 20 px 
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -185,12 +196,33 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $mod+shift+x exec betterlockscreen -l dim
+##
+# move floating windows with keys
+mode "move" {
+    bindsym $mod+Tab focus right
 
+    bindsym Left  move left 40px
+    bindsym Down  move down 40px
+    bindsym Up    move up 40px
+    bindsym Right move right 40px
+
+    bindsym h     move left 40px
+    bindsym j     move down 40px
+    bindsym k     move up 40px
+    bindsym l     move right 40px
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "move" focus floating
+
+bindsym $mod+shift+x exec betterlockscreen -l dim
 
 # polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --docky
 
+# style
 new_window normal
 for_window [class="^.*"] border pixel 2
 gaps inner 1px
@@ -198,6 +230,23 @@ gaps outer 1px
 
 
 # Shortcuts
+bindsym $mod+Shift+w exec google-chrome-stable --new-window
+bindsym $mod+Shift+f exec firefox --new-window
+bindsym $mod+Shift+Escape exec ~/.config/polybar/docky/scripts/powermenu.sh
+bindsym $mod+Escape exec --no-startup-id "dunstctl close"
+bindsym $mod+Return exec alacritty --working-directory "$(xcwd)"
+bindsym $mod+Shift+Return exec --no-startup-id "alacritty --class alacritty-floating"
+bindsym $mod+n exec --no-startup-id "alacritty --class newsboat -e zsh -c newsboat"
+
+# Window styles
+for_window [class="Spotify"] floating enable
+for_window [class="Spotify"] resize set 1800 px 1200 px
+for_window [class="alacritty-float"] floating enable
+for_window [class="alacritty-float"] resize set 1800 px 1024 px
+for_window [class="newsboat"] floating enable
+for_window [class="newsboat"] resize set 1800 px 1024 px
+for_window [class="newsboat"] move to workspace 12
+
 # Auto started apps
 exec --no-startup-id parcellite &
 exec --no-startup-id blueman-applet &
