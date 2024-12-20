@@ -154,7 +154,7 @@ bindsym $mod+comma workspace prev_on_output
 bindsym $mod+F1 focus output DP-1
 bindsym $mod+F2 focus output HDMI-1
 # move focused window between monitors (toggle behaviour)
-bindsym $mod+x move container to output right
+bindsym $mod+x move container to output right; focus output right
 
 # https://github.com/i3/i3/discussions/5536
 # switch to next available workspace
@@ -240,12 +240,11 @@ bindsym $mod+n exec --no-startup-id "alacritty --class newsboat -e zsh -c newsbo
 
 # Window styles
 for_window [class="Spotify"] floating enable
-for_window [class="Spotify"] resize set 1800 px 1200 px
+for_window [class="Spotify"] resize set 2100 px 1500 px
 for_window [class="alacritty-float"] floating enable
 for_window [class="alacritty-float"] resize set 1800 px 1024 px
 for_window [class="newsboat"] floating enable
-for_window [class="newsboat"] resize set 1800 px 1024 px
-for_window [class="newsboat"] move to workspace 12
+for_window [class="newsboat"] resize set 19r0 px 1200 px
 
 # Auto started apps
 exec --no-startup-id parcellite &
