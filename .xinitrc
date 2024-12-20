@@ -10,4 +10,9 @@ fi
 
 xrdb ~/.Xresources
 
+# Disable screen blanking (standby mode)
+# https://wiki.archlinux.org/title/Display_Power_Management_Signaling#DPMS_interaction_in_a_Linux_console_with_setterm
+# https://bbs.archlinux.org/viewtopic.php?id=173157
+sleep 1; xset s off
+
 exec i3
