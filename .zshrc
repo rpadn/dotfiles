@@ -155,6 +155,10 @@ alias cat='bat'
 # gtags
 export GTAGSLABEL=pygments
 
+# uv autocompletion
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
 # autostart X11
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
