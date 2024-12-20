@@ -1,0 +1,1 @@
+ACTION=="bind", SUBSYSTEM=="hid", ENV{HID_NAME}=="Wacom One pen tablet medium", ENV{HID_PHYS}=="8c:f8:c5:33:cd:76", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/rpadn/.Xauthority", RUN+="/home/rpadn/.config/wacom-config-bluetooth.sh"
