@@ -9,6 +9,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xrdb ~/.Xresources
+xmodamp ~/.Xmodmap
 
 # Disable screen blanking (standby mode)
 # https://wiki.archlinux.org/title/Display_Power_Management_Signaling#DPMS_interaction_in_a_Linux_console_with_setterm

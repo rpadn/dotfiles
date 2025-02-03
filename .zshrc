@@ -67,8 +67,6 @@ plugins=(
   fzf
   docker
   kubectl
-  bazel
-  jq
 )
 
 # Fix slow paste (see https://apple.stackexchange.com/a/384160)
