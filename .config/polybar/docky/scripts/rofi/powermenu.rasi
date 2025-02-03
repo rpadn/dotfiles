@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"FiraCodeNerdFont 13";
+	font:							"FiraCodeNerdFont 9";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -46,7 +46,7 @@ textbox-prompt-colon {
 	text-color: 					@bar;
 	expand: false;
 	str: "";
-	font:							"FiraCodeNerdFont 13";
+	font:							"FiraCodeNerdFont 9";
 }
 
 entry {
