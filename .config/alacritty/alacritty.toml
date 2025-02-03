@@ -1,5 +1,5 @@
 [font]
-size = 8.5
+size = 9.0
 
 [font.normal]
 family = "FiraCode Nerd Font"
@@ -9,35 +9,35 @@ save_to_clipboard = true
 
 # papercolor
 [colors.primary]
-background = '0x1c1c1c'
-foreground = '0xd0d0d0'
+background = '#1c1c1c'
+foreground = '#d0d0d0'
 
 [colors.cursor]
-text       = '0x1c1c1c'
-cursor     = '0xd0d0d0'
+text       = '#1c1c1c'
+cursor     = '#d0d0d0'
 
 [colors.normal]
-black      = '0x1c1c1c'
+black      = '#1c1c1c'
 # original - too dark
-# red        = '0xaf005f'
-red        = '0xa24176'
+# red        = '#af005f'
+red        = '#a24176'
 # original - too dark
-# green      = '0x5faf00'
-green      = '0x7fba39'
-yellow     = '0xd7af5f'
+# green      = '#5faf00'
+green      = '#7fba39'
+yellow     = '#d7af5f'
 # original - too dark
-# blue       = '0x5fafd7'
-blue       = '0x69bbe4'
-magenta    = '0x808080'
-cyan       = '0xd7875f'
-white      = '0xd0d0d0'
+# blue       = '#5fafd7'
+blue       = '#69bbe4'
+magenta    = '#808080'
+cyan       = '#d7875f'
+white      = '#d0d0d0'
 
 [colors.bright]
-black      = '0x585858'
-red        = '0x5faf5f'
-green      = '0xafd700'
-yellow     = '0xaf87d7'
-blue       = '0xffaf00'
-magenta    = '0xff5faf'
-cyan       = '0x00afaf'
-white      = '0x5f8787'
+black      = '#585858'
+red        = '#5faf5f'
+green      = '#afd700'
+yellow     = '#af87d7'
+blue       = '#ffaf00'
+magenta    = '#ff5faf'
+cyan       = '#00afaf'
+white      = '#5f8787'
